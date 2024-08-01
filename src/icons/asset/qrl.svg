@@ -1,0 +1,30 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_742_1168)">
+<rect x="10" y="8" width="30" height="30" rx="4" fill="white"/>
+<rect x="10.5" y="8.5" width="29" height="29" rx="3.5" stroke="#999999" stroke-opacity="0.3"/>
+</g>
+<mask id="mask0_742_1168" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="15" y="13" width="20" height="20">
+<path d="M15.5 32.5V13.5H34.5V32.5H15.5Z" fill="white" stroke="white"/>
+</mask>
+<g mask="url(#mask0_742_1168)">
+<path d="M23.1244 16.75H19.3744C19.0292 16.75 18.7494 17.0298 18.7494 17.375V21.1251C18.7494 21.4701 19.0292 21.75 19.3744 21.75H23.1244C23.4695 21.75 23.7494 21.4701 23.7494 21.1251V17.375C23.7494 17.0298 23.4695 16.75 23.1244 16.75Z" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23.1244 24.25H19.3744C19.0292 24.25 18.7494 24.5299 18.7494 24.8749V28.6251C18.7494 28.9701 19.0292 29.25 19.3744 29.25H23.1244C23.4695 29.25 23.7494 28.9701 23.7494 28.6251V24.8749C23.7494 24.5299 23.4695 24.25 23.1244 24.25Z" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M30.6245 16.75H26.8745C26.5293 16.75 26.2494 17.0298 26.2494 17.375V21.1251C26.2494 21.4701 26.5293 21.75 26.8745 21.75H30.6245C30.9695 21.75 31.2494 21.4701 31.2494 21.1251V17.375C31.2494 17.0298 30.9695 16.75 30.6245 16.75Z" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26.2494 24.25V26.75" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26.2494 29.25H28.7494V24.25" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M28.7494 25.5H31.2494" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M31.2494 28V29.25" stroke="black" stroke-width="0.954545" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<filter id="filter0_d_742_1168" x="0" y="0" width="50" height="50" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_742_1168"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_742_1168" result="shape"/>
+</filter>
+</defs>
+</svg>
