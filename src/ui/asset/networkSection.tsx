@@ -1,14 +1,22 @@
 
 import { ColorModeContext } from '@/context';
-import Headingcmp from '@/theme/components/headingcmp';
-import { Box, Grid, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useContext } from 'react';
-import Banner from './banner';
-import ShowDropList from '@/theme/components/showDropList';
+import Dropdown from '@/theme/components/dropdown';
+import SearchCustom from '@/theme/components/searchCustom';
+import SwitchCustom from '@/theme/components/switchCustom';
+import ListTable from './listTable';
+import CurrentList from './currentList';
+ 
 
 const useStyles = makeStyles({
-     
+    hide: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        justifyContent: 'end'
+    }
 });
 
 
@@ -22,19 +30,29 @@ const NetworkSection = () => {
         <>
 
             <Box sx={{
-                backgroundColor:theme.palette.secondary.contrastText,
-                border:theme.palette.primary.light,
-                padding:'1rem',
-                borderRadius:'4px'
+                backgroundColor: theme.palette.secondary.contrastText,
+                border: `1px solid ${theme.palette.primary.light}`,
+                padding: '10px',
+                borderRadius: '4px'
             }}>
-                
-<Box>
-    <Grid container spacing={2}>
-        <Grid item lg={3} md={3} sm={12} xs={12}>
-            <ShowDropList/>
-        </Grid>
-    </Grid>
-</Box>
+                <Grid container spacing={2}>
+                    <Grid item lg={3} md={3.5} sm={12} xs={12}>
+                        <Dropdown />
+                    </Grid>
+
+                    <Grid item lg={6} md={4.5} sm={7} xs={12}>
+                        <SearchCustom placeholder_Text={"Search Tokens..."} />
+                    </Grid>
+
+                    <Grid item lg={3} md={4} sm={5} xs={12}>
+                        <Box className={classes.hide}>
+                            <Typography>Hide Zero Balances</Typography>
+                            <SwitchCustom />
+                        </Box>
+                    </Grid>
+                </Grid>
+                <ListTable />
+                <CurrentList/>
             </Box>
 
         </>

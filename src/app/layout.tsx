@@ -34,16 +34,16 @@ const lightPalette: LightPalette = {
   primary: {
     main: '#080808',
     contrastText: '#fff',
-    light: '1px solid #1D1D20',
+    light: '#1D1D20',
   },
 
   secondary: {
     main: '#1D1D20',
     contrastText: '#000',
-    light: '1px solid #1D1D20'
+    light: '#1D1D20'
   },
   common: {
-    black: '#1D1D20',
+    black: '#131315',
     white: '#1D1D20',
     main: "",
     contrastText: ""
@@ -56,20 +56,21 @@ const darkPalette: DarkPalette = {
   primary: {
     main: '#fff',
     contrastText: '#000',
-    light: '1px solid #3DC1F2'
+    light: '#3DC1F2'
   },
   secondary: {
     main: '#FFFFFF',
     contrastText: '#F1F2F4',
-    light: '1px solid #DCDFE4'
+    light: '#DCDFE4'
   },
 
   common: {
-    black: '#DCDFE4',
+    black: '#F1F2F4',
     white: '#DCDFE4',
     main: "",
     contrastText: ""
   },
+  
   main: "",
   contrastText: ""
 };

@@ -14,7 +14,11 @@ const useStyles = makeStyles({
         display:'flex',
         alignItems:'center',
         justifyContent:'space-between',
-        margin:'30px 30px 20px 30px'
+        margin:'30px 30px 20px 30px',
+        flexWrap:'wrap',
+     '@media(max-width : 600px)':{
+             justifyContent:'center'
+        }
     },
     list:{
         margin:0,
@@ -23,6 +27,11 @@ const useStyles = makeStyles({
         display:'flex',
         alignItems:'center',
         gap:'1rem',
+         flexWrap:'wrap',
+        '@media(max-width : 600px)':{
+             justifyContent:'center',
+             marginTop:'15px'
+        }
     },
      
 

@@ -15,6 +15,7 @@ import TextTruncate from '@/theme/components/textTruncate';
 import shortenString from '@/lib/shortenString';
 import Link from 'next/link';
 import sun from '../../icons/asset/sun.gif'
+import moon from '../../icons/asset/moon.gif'
 import showboxd from '../../icons/asset/showboxd.svg'
 import showboxl from '../../icons/asset/showboxl.svg'
 
@@ -50,7 +51,10 @@ const useStyles = makeStyles({
     box5: {
         width: '100%',
         height: 'auto',
-        marginTop: '2rem'
+        marginTop: '2rem',
+        '@media(max-width : 1200px)':{
+            marginTop: '2rem',  
+        }
     }
 });
 
@@ -71,6 +75,9 @@ const Banner = () => {
                     width: '100%',
                     height: 'auto',
                     padding: address ? '1rem' : '2rem',
+                    '@media(max-width:1200px)':{
+                        padding: address ? '1rem' : '2rem 2rem 4rem 2rem',
+                    }
                 }}
             >
                 {address ?
@@ -93,11 +100,16 @@ const Banner = () => {
                         </Box>
                     </Box>
                     :
-                    <Box className={classes.box4}>
+                    <Box className={classes.box4} sx={{
+                        '@media(max-width : 1200px)':{
+                            justifyContent:'center'
+                        }
+                    }}
+                    >
 
-                        <Box>
+                        <Box mb={1}>
                             <Typography variant='h3' fontWeight={700}>Asset Page</Typography>
-                            <Typography>Connect your wallet to view and bridge your assets.</Typography>
+                            <Typography fontSize={15}>Connect your wallet to view and bridge your assets.</Typography>
                         </Box>
                     </Box>
                 }
@@ -113,9 +125,14 @@ const Banner = () => {
                     position: 'absolute',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    marginTop: '-5rem'
+                    marginTop: '-5rem',
+                    '@media(max-width : 1200px)':{
+                        width: '110px',
+                        height: '110px',  
+                        marginTop: '-3rem',
+                    }
                 }}>
-                    <Image src={sun} alt={''} style={{ width: '100%', height: 'auto', borderRadius: '50rem', mixBlendMode: 'darken' }} />
+                    <Image src={theme.palette.mode === "dark"?moon:sun} alt={''} style={{ width: '100%', height: 'auto', borderRadius: '50rem', mixBlendMode: 'darken' }} />
                 </Box>
             </Box>
             <Box>

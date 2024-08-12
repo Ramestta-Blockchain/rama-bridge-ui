@@ -8,7 +8,7 @@ import { useContext } from "react";
 const StyledLink = styled(Link)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
     display: 'inline-flex',
-    border:theme.palette.primary.light,
+    border:`1px solid ${theme.palette.primary.light}`,
     alignItems: 'center',
     gap: '1rem',
     color: theme.palette.primary.contrastText,

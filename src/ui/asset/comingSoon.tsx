@@ -33,7 +33,7 @@ const ComingSoon = () => {
                 <Box
                     sx={{
                         backgroundColor: theme.palette.secondary.main,
-                        border: theme.palette.primary.light,
+                        border: `1px solid ${theme.palette.primary.light}`,
                         display: 'flex',
                         justifyContent: 'center',
                         height: '480px',

@@ -1,12 +1,12 @@
 
 import { ColorModeContext } from '@/context';
 import Headingcmp from '@/theme/components/headingcmp';
-import { Box, useTheme } from '@mui/material';
+import { Box, Grid, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useContext } from 'react';
 import Banner from './banner';
 import NetworkSection from './networkSection';
-import DropDown from '@/theme/components/dropdown';
+ 
 
 const useStyles = makeStyles({
     mainDiv: {
@@ -30,7 +30,7 @@ const Main = () => {
 
             <Box className={classes.mainDiv}>
                 <Banner />
-                <DropDown />
+                <NetworkSection />
             </Box>
 
         </>

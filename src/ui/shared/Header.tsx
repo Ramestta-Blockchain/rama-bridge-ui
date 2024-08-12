@@ -2,13 +2,10 @@
 import Image from "next/image";
 import { Box, Drawer, styled, Typography, useTheme, } from "@mui/material";
 import Link from "next/link";
-import logod from '../../icons/logod.svg'
-import logol from '../../icons/logol.svg'
 import Iconbuttoncustom from "@/theme/components/iconbuttoncustom";
 import switchArrow from '../../icons/switchArrow.svg'
 import switchArrowd from '../../icons/switchArrowd.svg'
 import { useContext, useState } from "react";
-
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,10 +13,24 @@ import menud from '../../icons/menud.svg'
 import menul from '../../icons/menul.svg'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import ConnectWallet from "./connectWallet";
-import { useAccount, useChainId, useSwitchChain } from 'wagmi'
-import { config } from "@/configs/providers";
 import { ColorModeContext } from "@/context";
 import Sidebarmob from "./sidebarmob";
+
+import m1 from '../../icons/asset/m1.svg'
+import m2 from '../../icons/asset/m2.svg'
+import m3 from '../../icons/asset/m3.svg'
+import m4 from '../../icons/asset/m4.svg'
+import m5 from '../../icons/asset/m5.svg'
+import m6 from '../../icons/asset/m6.svg'
+import m7 from '../../icons/asset/m7.svg'
+
+import ml1 from '../../icons/asset/ml1.svg'
+import ml2 from '../../icons/asset/ml2.svg'
+import ml3 from '../../icons/asset/ml3.svg'
+import ml4 from '../../icons/asset/ml4.svg'
+import ml5 from '../../icons/asset/ml5.svg'
+import ml6 from '../../icons/asset/ml6.svg'
+import ml7 from '../../icons/asset/ml7.svg'
 
 
 
@@ -83,8 +94,7 @@ const Header = ({ icon, text }: props) => {
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpenMob(newOpen);
     };
-    const { switchChainAsync } = useSwitchChain()
-    const { chainId, address } = useAccount()
+
 
     const DrawerList = (
         <Box sx={{
@@ -245,9 +255,43 @@ const Header = ({ icon, text }: props) => {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem onClick={handleClose}><Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"/calculator"}>Calculator</Link></MenuItem>
-                                <MenuItem onClick={handleClose}>RAMA Explorer</MenuItem>
-                                <MenuItem onClick={handleClose}><Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"/faqs"}>FAQs</Link></MenuItem>
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m1 : ml1} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Support</Link>
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m2 : ml2} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Read FAQs</Link>
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m3 : ml3} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Documentation</Link>
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m4 : ml4} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>  Network status</Link>
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m5 : ml5} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Privacy policy</Link>
+
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m6 : ml6} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Terms of Use</Link>
+
+                                </MenuItem>
+
+                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                    <Image src={theme.palette.mode === "dark" ? m7 : ml7} alt={""} />
+                                    <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Cookie Policy</Link>
+
+                                </MenuItem>
                             </Menu>
                         </Box>
                     </Box>

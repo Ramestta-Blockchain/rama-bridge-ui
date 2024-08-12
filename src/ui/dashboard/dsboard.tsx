@@ -87,6 +87,11 @@ const useStyles = makeStyles({
             display:'block'
         }
     },
+    br:{
+        '@media(max-width : 600px)':{
+            display:'none'
+        }
+    }
 
 });
 
@@ -191,7 +196,9 @@ const Dsboard = () => {
                 </Box>
 
                 <Box mt={3}>
-                    <Typography variant="h4">Developer Tools</Typography>
+                    <Typography sx={{'@media(max-width : 600px)':{
+                        fontSize:'23px'
+                    }}} variant="h4"  >Developer Tools</Typography>
                     <SliderBox />
                 </Box>
 
@@ -201,7 +208,7 @@ const Dsboard = () => {
                             <Box
                                 sx={{
                                     background: theme.palette.mode === "dark" ? "linear-gradient(90deg, #010101, #232323, #010101)" : "linear-gradient(90deg, #fff, #E1E3E8, #fff)",
-                                    border: theme.palette.primary.light,
+                                    border: `1px solid ${theme.palette.primary.light}`,
                                     borderRadius: '4px',
                                     height: '100%'
                                 }}
@@ -217,8 +224,10 @@ const Dsboard = () => {
                                     sx={{
                                         margin: '-3rem 1rem 1rem 1rem'
                                     }}>
-                                    <Typography variant="h4">Get Support or Give <Typography component={'br'} /> Feedback</Typography>
-                                    <Typography>Find answers to all your queries through <Typography component={'br'} /> our curated FAQs, or raise a ticket to get in touch.</Typography>
+                                    <Typography sx={{'@media(max-width : 600px)':{
+                        fontSize:'23px'
+                    }}} variant="h4">Get Support or Give <Typography component={'br'} className={classes.br}/> Feedback</Typography>
+                                    <Typography>Find answers to all your queries through <Typography component={'br'} className={classes.br}/> our curated FAQs, or raise a ticket to get in touch.</Typography>
                                     <Link style={{
                                         color: theme.palette.primary.contrastText,
                                         textDecoration: 'none',
@@ -233,7 +242,7 @@ const Dsboard = () => {
                             <Box
                                 sx={{
                                     background: theme.palette.mode === "dark" ? "linear-gradient(90deg, #010101, #232323, #010101)" : "linear-gradient(90deg, #fff, #E1E3E8, #fff)",
-                                    border: theme.palette.primary.light,
+                                    border: `1px solid ${theme.palette.primary.light}`,
                                     borderRadius: '4px',
                                     height: '100%'
                                 }}
@@ -249,7 +258,9 @@ const Dsboard = () => {
                                     sx={{
                                         margin: '-3rem 1rem 1rem 1rem'
                                     }}>
-                                    <Typography variant="h4">Developer <Typography component={'br'} /> Documentation</Typography>
+                                    <Typography sx={{'@media(max-width : 600px)':{
+                        fontSize:'23px'
+                    }}} variant="h4">Developer <Typography component={'br'} className={classes.br}/> Documentation</Typography>
                                     <Typography>Get access to relevant polygon documentation</Typography>
                                     <Link style={{
                                         color: theme.palette.primary.contrastText,

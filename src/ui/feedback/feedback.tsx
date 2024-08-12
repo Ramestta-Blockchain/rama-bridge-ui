@@ -48,7 +48,7 @@ const Feedback = () => {
                 <Grid container spacing={0}>
                     <Grid item lg={active === false ? 2.2 : 0.8} md={active === false ? 3 : 1.1} sm={12} xs={12} sx={{
                         transition: 'all 0.3s ease',
-                        borderRight: theme.palette.primary.light,
+                        borderRight: `1px solid ${theme.palette.primary.light}`,
                         position: 'relative',
                     }}>
                         <Box
