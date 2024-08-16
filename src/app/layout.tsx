@@ -19,12 +19,16 @@ interface CustomPalette {
   light?: string;
   black?:string;
   white?:string;
+  paper?:string;
+  default?:string;
 }
 
 interface LightPalette extends CustomPalette {
   primary: CustomPalette;
   secondary: CustomPalette;
   common:CustomPalette;
+  background:CustomPalette;
+ 
 }
 
 interface DarkPalette extends LightPalette { }
@@ -48,6 +52,12 @@ const lightPalette: LightPalette = {
     main: "",
     contrastText: ""
   },
+  background: {
+    default:"#0C0C0D",
+    paper:"",
+    main: "",
+    contrastText: ""
+  },
   main: "",
   contrastText: ""
 };
@@ -67,6 +77,12 @@ const darkPalette: DarkPalette = {
   common: {
     black: '#F1F2F4',
     white: '#DCDFE4',
+    main: "",
+    contrastText: ""
+  },
+  background: {
+    default:"#DCDFE4",
+    paper:"",
     main: "",
     contrastText: ""
   },

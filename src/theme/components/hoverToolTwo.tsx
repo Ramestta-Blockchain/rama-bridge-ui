@@ -8,7 +8,7 @@ import { useContext } from "react";
     Title:any;
  }
 
- const HoverTool = ({ImageItem,Title}:props)=>{
+ const HoverToolTwo = ({ImageItem,Title}:props)=>{
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
     return(
@@ -22,4 +22,4 @@ import { useContext } from "react";
     )
  }
 
- export default HoverTool;
+ export default HoverToolTwo;

@@ -8,7 +8,9 @@ import SearchCustom from '@/theme/components/searchCustom';
 import SwitchCustom from '@/theme/components/switchCustom';
 import ListTable from './listTable';
 import CurrentList from './currentList';
- 
+import Empty from './empty';
+import { useAccount } from 'wagmi';
+
 
 const useStyles = makeStyles({
     hide: {
@@ -26,6 +28,7 @@ const NetworkSection = () => {
     const classes = useStyles();
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
+    const { address, isConnected } = useAccount();
     return (
         <>
 
@@ -51,8 +54,16 @@ const NetworkSection = () => {
                         </Box>
                     </Grid>
                 </Grid>
-                <ListTable />
-                <CurrentList/>
+                {address ?
+                    <>
+                        <ListTable />
+                        <CurrentList />
+                    </>
+                    :
+                    <>
+                    <Empty />
+                    </>
+                    }
             </Box>
 
         </>

@@ -2,29 +2,27 @@ import React, { useContext } from 'react';
 import { Select, MenuItem, FormControl, ListItemText, useTheme, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import { ColorModeContext } from '@/context';
-import d1 from '../../icons/asset/d1.svg';
-import dl1 from '../../icons/asset/dl1.svg';
 import d4 from '../../icons/asset/d4.svg';
 import sheild from '../../icons/asset/lgsheild.svg';
 import Image from 'next/image';
 
 const CustomFormControl = styled(FormControl)({
-     
+    border: 'none',
 });
 
 const CustomSelect = styled(Select)({
-    minWidth: '200px',
     borderRadius: '8px',
-
+    border: 'none',
 });
 
 const CustomMenuItem = styled(MenuItem)({
     display: 'flex',
     alignItems: 'center',
+    border: 'none',
 });
 
-const Dropdown = () => {
-    const [selectedLocation, setSelectedLocation] = React.useState('Polygon');
+const DropdownTwo = () => {
+    const [selectedLocation, setSelectedLocation] = React.useState('MATIC');
     const handleChange = (event: { target: { value: React.SetStateAction<any>; }; }) => {
         setSelectedLocation(event.target.value);
     };
@@ -34,18 +32,17 @@ const Dropdown = () => {
 
     const locations = [
         {
-            name: 'All networks',
-            icon: theme.palette.mode === "dark" ? d1 : dl1,
-        },
-        {
-            name: 'Polygon',
+            name: 'MATIC',
             icon: d4,
         },
         {
-            name: 'Ramestta POS',
+            name: 'ETH',
+            icon: d4,
+        },
+        {
+            name: 'DST',
             icon: sheild,
         },
-         
     ];
 
     const menuProps = {
@@ -57,15 +54,15 @@ const Dropdown = () => {
     };
 
     return (
-        <CustomFormControl fullWidth>
+        <CustomFormControl>
             <CustomSelect
                 sx={{
-                    height:'52px',
-                    backgroundColor: theme.palette.primary.main,
-                    border:`1px solid ${theme.palette.secondary.light}`,
+                    height: '52px',
+                    backgroundColor: 'transparent',
                     boxShadow: 'none',
-                    borderRadius:'6px',
-                     
+                    borderRadius: '6px',
+                    border: 'none',
+                    padding: '0px', // Zero padding
                     '& .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'transparent',
                         boxShadow: 'inherit',
@@ -75,25 +72,30 @@ const Dropdown = () => {
                         boxShadow: 'inherit',
                     },
                 }}
-
                 MenuProps={menuProps}
                 labelId="map-select-label"
                 value={selectedLocation}
                 onChange={handleChange}
+                inputProps={{
+                    sx: {
+                        padding: '5px', // Zero padding on input
+                    },
+                }}
             >
                 {locations.map((location, index) => (
                     <CustomMenuItem
                         sx={{
+                            border: 'none',
                             '&:hover': {
-                                backgroundColor: theme.palette.secondary.contrastText,
-                                border: 'none', // Remove the border on hover
+                                backgroundColor: 'transparent',
+                                border: 'none',
                             },
                         }}
                         key={index}
                         value={location.name}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <Image src={location.icon} alt={''} />
+                            <Image src={location.icon} alt={`${location.name} icon`} width={24} height={24} />
                             <ListItemText primary={location.name} />
                         </Box>
                     </CustomMenuItem>
@@ -103,4 +105,4 @@ const Dropdown = () => {
     );
 };
 
-export default Dropdown;
+export default DropdownTwo;

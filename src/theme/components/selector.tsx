@@ -9,45 +9,49 @@ import sheild from '../../icons/asset/lgsheild.svg';
 import Image from 'next/image';
 
 const CustomFormControl = styled(FormControl)({
-     
+    border: 'none',
 });
 
 const CustomSelect = styled(Select)({
-    minWidth: '200px',
     borderRadius: '8px',
-
+    border: 'none',
 });
 
 const CustomMenuItem = styled(MenuItem)({
     display: 'flex',
     alignItems: 'center',
+    border: 'none',
 });
 
-const Dropdown = () => {
-    const [selectedLocation, setSelectedLocation] = React.useState('Polygon');
-    const handleChange = (event: { target: { value: React.SetStateAction<any>; }; }) => {
-        setSelectedLocation(event.target.value);
-    };
+interface DropdownTwoProps {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+const Selector = ({ value, onChange }: DropdownTwoProps) => {
+
 
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
 
     const locations = [
         {
-            name: 'All networks',
-            icon: theme.palette.mode === "dark" ? d1 : dl1,
-        },
-        {
-            name: 'Polygon',
+            name: 'MATIC',
             icon: d4,
         },
         {
-            name: 'Ramestta POS',
+            name: 'ETH',
+            icon: d4,
+        },
+        {
+            name: 'DST',
             icon: sheild,
         },
-         
+        {
+            name: 'RAMA',
+            icon: sheild,
+        },
     ];
-
     const menuProps = {
         PaperProps: {
             sx: {
@@ -55,17 +59,16 @@ const Dropdown = () => {
             },
         },
     };
-
     return (
-        <CustomFormControl fullWidth>
+        <CustomFormControl>
             <CustomSelect
                 sx={{
-                    height:'52px',
-                    backgroundColor: theme.palette.primary.main,
-                    border:`1px solid ${theme.palette.secondary.light}`,
+                    height: '52px',
+                    backgroundColor:theme.palette.primary.main,
                     boxShadow: 'none',
-                    borderRadius:'6px',
-                     
+                    borderRadius: '6px',
+                    border: 'none',
+                    padding: '0px', // Zero padding
                     '& .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'transparent',
                         boxShadow: 'inherit',
@@ -75,25 +78,31 @@ const Dropdown = () => {
                         boxShadow: 'inherit',
                     },
                 }}
-
                 MenuProps={menuProps}
                 labelId="map-select-label"
-                value={selectedLocation}
-                onChange={handleChange}
+                value={value}
+                onChange={(e) => onChange(e.target.value as string)}
+                displayEmpty
+                inputProps={{
+                    sx: {
+                        padding: '5px', // Zero padding on input
+                    },
+                }}
             >
                 {locations.map((location, index) => (
                     <CustomMenuItem
                         sx={{
+                            border: 'none',
                             '&:hover': {
-                                backgroundColor: theme.palette.secondary.contrastText,
-                                border: 'none', // Remove the border on hover
+                                backgroundColor: 'transparent',
+                                border: 'none',
                             },
                         }}
                         key={index}
                         value={location.name}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <Image src={location.icon} alt={''} />
+                            <Image src={location.icon} alt={`${location.name} icon`} width={24} height={24} />
                             <ListItemText primary={location.name} />
                         </Box>
                     </CustomMenuItem>
@@ -103,4 +112,4 @@ const Dropdown = () => {
     );
 };
 
-export default Dropdown;
+export default Selector;

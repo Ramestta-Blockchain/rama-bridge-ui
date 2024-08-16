@@ -239,14 +239,13 @@ const Header = ({ icon, text }: props) => {
                                 {theme.palette.mode === "dark" ? <Image src={menud} alt="menu" /> : <Image src={menul} alt="menu" />}
                             </Button>
                             <Menu
-                                // sx={{
-                                //     '.MuiMenu-list': {
-                                //         backgroundColor: theme.palette.mode === "dark" ? "#fff" : "#1C1C20",
-                                //         border: theme.palette.mode === "dark" ? "1px solid #C6C5CA" : "1px solid #5A5A5C",
-                                //         color: theme.palette.mode === "dark" ? "#000" : "#fff"
-                                //     }
+                                sx={{
+                                    '.MuiMenu-list': {
+                                        backgroundColor: theme.palette.secondary.main,
+                                        
+                                    }
 
-                                // }}
+                                }}
                                 id="basic-menu"
                                 anchorEl={anchorEl}
                                 open={open}

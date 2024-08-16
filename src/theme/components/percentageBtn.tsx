@@ -4,30 +4,26 @@ import Link from "next/link";
 
 const StyledLink = styled(Link)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
-    display: 'inline-block',
-    border:theme.palette.secondary.light,
-    textAlign: 'center',
     color: theme.palette.primary.contrastText,
     textDecoration: 'none',
-    padding: '10px 16px',
-    borderRadius: '6px',
+    padding: '6px 10px',
+    borderRadius: '4px',
     transition: '0.5s',
-    width:'100%'
+    display:'inline-block'
 }));
 
 interface Props {
-    ButtonText: any;
-    url:any;
+    Text: string;
 }
 
-const ButtonText = ({ ButtonText,url }: Props) => {
+const PercentageBtn = ({ Text }: Props) => {
     return (
         <>
-            <StyledLink href={url}>
-                <Box m={0} component={'p'}>{ButtonText}</Box>
+            <StyledLink href={"#"}>
+                {Text}
             </StyledLink>
         </>
     )
 }
 
-export default ButtonText;
+export default PercentageBtn;

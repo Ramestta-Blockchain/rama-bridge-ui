@@ -13,7 +13,7 @@ import Image from "next/image";
 import Sidebardb from "../dashboard/sidebardb";
 import Sidebarmob from "../dashboard/sidebarmob";
 import Main from "./main";
- 
+
 
 const Asset = () => {
 
