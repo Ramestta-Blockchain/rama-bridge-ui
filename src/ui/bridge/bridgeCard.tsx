@@ -147,11 +147,11 @@ const BridgeCard = () => {
                                         padding: '10px',
                                         borderRadius: '6px',
                                         marginTop: '10px',
-                                        '@media(max-width : 600px)':{
-                                            flexWrap:'wrap',
-                                            justifyContent:'center'
+                                        '@media(max-width : 600px)': {
+                                            flexWrap: 'wrap',
+                                            justifyContent: 'center'
                                         }
-                                        
+
                                     }}
                                 >
                                     <Box>
@@ -159,13 +159,13 @@ const BridgeCard = () => {
                                     </Box>
 
                                     <Box className={classes.flex_box}
-                                     sx={{
-                                        '@media(max-width : 600px)':{
-                                            flexWrap:'wrap',
-                                            justifyContent:'center',
-                                            gap:'5px'
-                                        }
-                                     }}
+                                        sx={{
+                                            '@media(max-width : 600px)': {
+                                                flexWrap: 'wrap',
+                                                justifyContent: 'center',
+                                                gap: '5px'
+                                            }
+                                        }}
                                     >
                                         <Box className={classes.flex_box}>
                                             <PercentageBtn Text={'25%'} />
@@ -177,8 +177,8 @@ const BridgeCard = () => {
                                                 backgroundColor: theme.palette.secondary.light,
                                                 width: '1px',
                                                 height: '50px',
-                                                '@media(max-width : 600px)':{
-                                                    display:'none'
+                                                '@media(max-width : 600px)': {
+                                                    display: 'none'
                                                 }
                                             }}
                                         />
@@ -205,14 +205,14 @@ const BridgeCard = () => {
                             </Box>
 
                             <Box className={classes.flex_box2}
-                             sx={{
-                                '@media(max-width : 600px)':{
-                                    flexWrap:'wrap',
-                                    justifyContent:'center',
-                                    gap:'5px'
-                                }
-                             }}
-                             >
+                                sx={{
+                                    '@media(max-width : 600px)': {
+                                        flexWrap: 'wrap',
+                                        justifyContent: 'center',
+                                        gap: '5px'
+                                    }
+                                }}
+                            >
                                 <Box>
                                     <Typography>Transfer To</Typography>
                                 </Box>

@@ -242,7 +242,7 @@ const Header = ({ icon, text }: props) => {
                                 sx={{
                                     '.MuiMenu-list': {
                                         backgroundColor: theme.palette.secondary.main,
-                                        
+
                                     }
 
                                 }}
@@ -254,39 +254,39 @@ const Header = ({ icon, text }: props) => {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m1 : ml1} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Support</Link>
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m2 : ml2} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Read FAQs</Link>
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m3 : ml3} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Documentation</Link>
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m4 : ml4} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>  Network status</Link>
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m5 : ml5} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Privacy policy</Link>
 
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m6 : ml6} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Terms of Use</Link>
 
                                 </MenuItem>
 
-                                <MenuItem sx={{gap:1}} onClick={handleClose}>
+                                <MenuItem sx={{ gap: 1 }} onClick={handleClose}>
                                     <Image src={theme.palette.mode === "dark" ? m7 : ml7} alt={""} />
                                     <Link style={{ textDecoration: 'none', color: theme.palette.primary.contrastText }} href={"#"}>Cookie Policy</Link>
 

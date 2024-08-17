@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
-import { Select, MenuItem, FormControl, ListItemText, useTheme, Box } from '@mui/material';
+import { Select, MenuItem, FormControl, ListItemText, useTheme, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { ColorModeContext } from '@/context';
-import d4 from '../../icons/asset/d4.svg';
-import sheild from '../../icons/asset/lgsheild.svg';
+import tokenicon1 from '../../icons/asset/tokenicon1.svg';
+import tokenicon2 from '../../icons/asset/tokenicon2.svg';
+import tokenicon3 from '../../icons/asset/tokenicon3.svg';
+import tokenicon4 from '../../icons/asset/tokenicon4.svg';
+import tokenicon5 from '../../icons/asset/tokenicon5.svg';
+import tokenicon6 from '../../icons/asset/tokenicon6.svg';
 import Image from 'next/image';
+import SearchCustom from './searchCustom';
+import cross from '../../icons/asset/cross.svg'
 
 const CustomFormControl = styled(FormControl)({
     border: 'none',
@@ -15,14 +21,23 @@ const CustomSelect = styled(Select)({
     border: 'none',
 });
 
-const CustomMenuItem = styled(MenuItem)({
+const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    border: 'none',
-});
+    border: '1px solid transparent',
+    '&.Mui-selected': {
+        backgroundColor: theme.palette.primary.main,
+        border: `1px solid ${theme.palette.primary.light}`,
+        borderRadius: '6px',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+            border: `1px solid ${theme.palette.primary.light}`,
+        }
+    },
+}));
 
 const DropdownTwo = () => {
-    const [selectedLocation, setSelectedLocation] = React.useState('MATIC');
+    const [selectedLocation, setSelectedLocation] = React.useState('USDC');
     const handleChange = (event: { target: { value: React.SetStateAction<any>; }; }) => {
         setSelectedLocation(event.target.value);
     };
@@ -32,76 +47,159 @@ const DropdownTwo = () => {
 
     const locations = [
         {
+            name: 'USDC',
+            icon: tokenicon1,
+            description: 'USD Coin',
+        },
+        {
             name: 'MATIC',
-            icon: d4,
+            icon: tokenicon2,
+            description: 'Matic Token',
         },
         {
-            name: 'ETH',
-            icon: d4,
+            name: 'USDT',
+            icon: tokenicon3,
+            description: 'Tether USD',
         },
         {
-            name: 'DST',
-            icon: sheild,
+            name: 'DAI',
+            icon: tokenicon4,
+            description: 'Dai',
+        },
+        {
+            name: 'WBTC',
+            icon: tokenicon5,
+            description: 'Wrapped BTC',
+        },
+        {
+            name: 'CRV',
+            icon: tokenicon6,
+            description: 'CRV',
         },
     ];
 
     const menuProps = {
         PaperProps: {
             sx: {
-                backgroundColor: theme.palette.secondary.main
+                minWidth: '400px !important',
+                backgroundColor: theme.palette.mode === "dark" ? '#0C0C0D !important' : "#F7F7F8",
+                top: '50% !important',
+                left: '50% !important',
+                transform: 'translate(-50%, -50%) !important',
+                borderRadius: '12px',
+                boxShadow: '0px 0px 6px -1px #3DC1F2',
+                maxHeight: 'inherit',
+                padding: '0.5rem 1rem',
+                border: `1px solid ${theme.palette.primary.light}`,
+                backgroundImage: 'none'
             },
         },
     };
 
     return (
-        <CustomFormControl>
-            <CustomSelect
-                sx={{
-                    height: '52px',
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                    borderRadius: '6px',
-                    border: 'none',
-                    padding: '0px', // Zero padding
-                    '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'transparent',
-                        boxShadow: 'inherit',
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'transparent',
-                        boxShadow: 'inherit',
-                    },
-                }}
-                MenuProps={menuProps}
-                labelId="map-select-label"
-                value={selectedLocation}
-                onChange={handleChange}
-                inputProps={{
-                    sx: {
-                        padding: '5px', // Zero padding on input
-                    },
-                }}
-            >
-                {locations.map((location, index) => (
-                    <CustomMenuItem
-                        sx={{
-                            border: 'none',
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                            },
-                        }}
-                        key={index}
-                        value={location.name}
-                    >
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <Image src={location.icon} alt={`${location.name} icon`} width={24} height={24} />
-                            <ListItemText primary={location.name} />
-                        </Box>
-                    </CustomMenuItem>
-                ))}
-            </CustomSelect>
-        </CustomFormControl>
+        <Box>
+
+            <CustomFormControl>
+
+                <CustomSelect
+                    sx={{
+                        height: '52px',
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                        borderRadius: '6px',
+                        border: '1px solid transparent',
+                        padding: '0px', // Zero padding
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'transparent',
+                            boxShadow: 'inherit',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'transparent',
+                            boxShadow: 'inherit',
+                        },
+                    }}
+                    MenuProps={menuProps}
+                    labelId="map-select-label"
+                    value={selectedLocation}
+                    onChange={handleChange}
+                    inputProps={{
+                        sx: {
+                            padding: '5px', // Zero padding on input
+                        },
+                    }}
+                    renderValue={(selected) => {
+                        const selectedItem = locations.find(location => location.name === selected);
+                        if (!selectedItem) return null;
+                        return (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Image src={selectedItem.icon} alt={`${selectedItem.name} icon`} width={24} height={24} />
+                                <ListItemText primary={selectedItem.name} />
+                            </Box>
+                        );
+                    }}
+                >
+                    <Box mb={3} sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <Box><Typography variant='h6'>Select Token on Ethereum</Typography></Box>
+                        <Box sx={{
+                            backgroundColor:theme.palette.primary.main,
+                            border:`1px solid ${theme.palette.secondary.light}`,
+                            padding:'10px',
+                            borderRadius:'30px'
+                        }}> <Image src={cross} alt={''} style={{display:'block'}}/></Box>
+                    </Box>
+                    <Box mb={3}>
+                        <SearchCustom placeholder_Text={"Search by token name or address"} />
+                    </Box>
+
+                    {locations.map((location, index) => (
+
+
+                        <CustomMenuItem
+                            sx={{
+                                display: 'inherit',
+                                border: '1px solid transparent',
+                                padding: '8px',
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary.main,
+                                    border: `1px solid ${theme.palette.primary.light}`,
+                                    borderRadius: '6px'
+                                },
+                            }}
+                            key={index}
+                            value={location.name}
+                        >
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <Box>
+                                        <Image src={location.icon} alt={`${location.name} icon`} width={24} height={24} />
+                                    </Box>
+                                    <Box>
+                                        <ListItemText primary={location.name} />
+                                        <Typography color={'#999'}>{location.description}</Typography>
+                                    </Box>
+                                </Box>
+
+                                <Box
+                                    sx={{
+                                        padding: '10px',
+                                        backgroundColor: theme.palette.background.default,
+                                        borderRadius: '6px',
+                                        border: `1px solid ${theme.palette.primary.light}`
+                                    }}
+                                >
+                                    <Typography>0</Typography>
+                                </Box>
+                            </Box>
+                        </CustomMenuItem>
+
+                    ))}
+                </CustomSelect>
+            </CustomFormControl>
+        </Box>
     );
 };
 
