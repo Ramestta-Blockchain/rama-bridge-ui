@@ -10,6 +10,10 @@ import ListTable from './listTable';
 import CurrentList from './currentList';
 import Empty from './empty';
 import { useAccount } from 'wagmi';
+import d1 from '../../icons/asset/d1.svg';
+import dl1 from '../../icons/asset/dl1.svg';
+import d4 from '../../icons/asset/d4.svg';
+import sheild from '../../icons/asset/lgsheild.svg';
 
 
 const useStyles = makeStyles({
@@ -29,6 +33,24 @@ const NetworkSection = () => {
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
     const { address, isConnected } = useAccount();
+
+    const locationData = [
+        {
+            name: 'All networks',
+            icon: theme.palette.mode === "dark" ? d1 : dl1,
+        },
+        {
+            name: 'Polygon',
+            icon: d4,
+        },
+        {
+            name: 'Ramestta POS',
+            icon: sheild,
+        },
+    
+    ];
+
+
     return (
         <>
 
@@ -40,7 +62,7 @@ const NetworkSection = () => {
             }}>
                 <Grid container spacing={2}>
                     <Grid item lg={3} md={3.5} sm={12} xs={12}>
-                        <Dropdown />
+                        <Dropdown locations={locationData} currentValue={'All networks'} />
                     </Grid>
 
                     <Grid item lg={6} md={4.5} sm={7} xs={12}>

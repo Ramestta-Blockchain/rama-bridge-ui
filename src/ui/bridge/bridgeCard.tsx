@@ -41,7 +41,6 @@ const useStyles = makeStyles({
     },
     connectBridge: {
         backgroundColor: '#3DC1F2 !important',
-
         textDecoration: 'none',
         padding: '10px 16px !important',
         borderRadius: '6px !important',

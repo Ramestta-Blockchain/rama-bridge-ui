@@ -8,14 +8,19 @@ import d4 from '../../icons/asset/d4.svg';
 import sheild from '../../icons/asset/lgsheild.svg';
 import Image from 'next/image';
 
-const CustomFormControl = styled(FormControl)({
-     
-});
+// Define the prop interface (if using TypeScript)
+interface DropdownProps {
+    locations: {
+        name: string;
+        icon: string;
+    }[];
+    currentValue:string;
+}
+
+const CustomFormControl = styled(FormControl)({});
 
 const CustomSelect = styled(Select)({
-    minWidth: '200px',
     borderRadius: '8px',
-
 });
 
 const CustomMenuItem = styled(MenuItem)({
@@ -23,8 +28,8 @@ const CustomMenuItem = styled(MenuItem)({
     alignItems: 'center',
 });
 
-const Dropdown = () => {
-    const [selectedLocation, setSelectedLocation] = React.useState('Polygon');
+const Dropdown: React.FC<DropdownProps> = ({ locations, currentValue }) => {
+    const [selectedLocation, setSelectedLocation] = React.useState(currentValue);
     const handleChange = (event: { target: { value: React.SetStateAction<any>; }; }) => {
         setSelectedLocation(event.target.value);
     };
@@ -32,26 +37,10 @@ const Dropdown = () => {
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
 
-    const locations = [
-        {
-            name: 'All networks',
-            icon: theme.palette.mode === "dark" ? d1 : dl1,
-        },
-        {
-            name: 'Polygon',
-            icon: d4,
-        },
-        {
-            name: 'Ramestta POS',
-            icon: sheild,
-        },
-         
-    ];
-
     const menuProps = {
         PaperProps: {
             sx: {
-                backgroundColor: theme.palette.secondary.main
+                backgroundColor: theme.palette.secondary.main,
             },
         },
     };
@@ -60,12 +49,12 @@ const Dropdown = () => {
         <CustomFormControl fullWidth>
             <CustomSelect
                 sx={{
-                    height:'52px',
+                    height: '52px',
                     backgroundColor: theme.palette.primary.main,
-                    border:`1px solid ${theme.palette.secondary.light}`,
+                    border: `1px solid ${theme.palette.secondary.light}`,
                     boxShadow: 'none',
-                    borderRadius:'6px',
-                     
+                    borderRadius: '6px',
+
                     '& .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'transparent',
                         boxShadow: 'inherit',
@@ -75,7 +64,6 @@ const Dropdown = () => {
                         boxShadow: 'inherit',
                     },
                 }}
-
                 MenuProps={menuProps}
                 labelId="map-select-label"
                 value={selectedLocation}
@@ -86,14 +74,14 @@ const Dropdown = () => {
                         sx={{
                             '&:hover': {
                                 backgroundColor: theme.palette.secondary.contrastText,
-                                border: 'none', // Remove the border on hover
+                                border: 'none',
                             },
                         }}
                         key={index}
                         value={location.name}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <Image src={location.icon} alt={''} />
+                            <Image src={location.icon} alt={location.name} />
                             <ListItemText primary={location.name} />
                         </Box>
                     </CustomMenuItem>

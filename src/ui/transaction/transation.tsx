@@ -1,6 +1,5 @@
 "use client"
 import { Box, Grid, Typography, useTheme } from "@mui/material";
- 
 import Header from "../shared/Header";
 import { useContext, useState } from "react";
 import { ColorModeContext } from "@/context";
@@ -12,11 +11,10 @@ import arrowl from '../../icons/arrowl.svg'
 import Link from "next/link";
 import Image from "next/image";
 import Sidebardb from "../dashboard/sidebardb";
- 
 import Sidebarmob from "../dashboard/sidebarmob";
-import ComingSoon from "../asset/comingSoon";
- 
- 
+import Main from "./main";
+
+
 
 const Transation = () => {
 
@@ -82,7 +80,7 @@ const Transation = () => {
                         sx={{ transition: 'all 0.3s ease', }}
                     >
                         <Header icon={theme.palette.mode === "dark" ? dashicond : dashiconl} text={"Dashboard"} />
-                        <ComingSoon />
+                        <Main />
                         <Footer />
                     </Grid>
                 </Grid>

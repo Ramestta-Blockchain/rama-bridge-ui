@@ -54,7 +54,7 @@ const lightPalette: LightPalette = {
   },
   background: {
     default:"#0C0C0D",
-    paper:"",
+    paper:"#0C0C0D",
     main: "",
     contrastText: ""
   },
@@ -82,7 +82,7 @@ const darkPalette: DarkPalette = {
   },
   background: {
     default:"#DCDFE4",
-    paper:"",
+    paper:"#fff",
     main: "",
     contrastText: ""
   },
