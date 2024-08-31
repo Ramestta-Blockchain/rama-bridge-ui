@@ -11,6 +11,9 @@ import tokenicon6 from '../../icons/asset/tokenicon6.svg';
 import Image from 'next/image';
 import SearchCustom from './searchCustom';
 import cross from '../../icons/asset/cross.svg'
+import HoverTool from './hoverTool';
+import Modal from './modal';
+import ModalTwo from './modalTwo';
 
 const CustomFormControl = styled(FormControl)({
     border: 'none',
@@ -25,6 +28,7 @@ const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     border: '1px solid transparent',
+    
     '&.Mui-selected': {
         backgroundColor: theme.palette.primary.main,
         border: `1px solid ${theme.palette.primary.light}`,
@@ -145,15 +149,20 @@ const DropdownTwo = () => {
                     }}>
                         <Box><Typography variant='h6'>Select Token on Ethereum</Typography></Box>
                         <Box sx={{
-                            backgroundColor:theme.palette.primary.main,
-                            border:`1px solid ${theme.palette.secondary.light}`,
-                            padding:'10px',
-                            borderRadius:'30px'
-                        }}> <Image src={cross} alt={''} style={{display:'block'}}/></Box>
+                            backgroundColor: theme.palette.primary.main,
+                            border: `1px solid ${theme.palette.secondary.light}`,
+                            padding: '6px',
+                            borderRadius: '30px',
+                            width: '40px',
+                            height: '40px',
+                            textAlign: 'center'
+                        }}> <HoverTool ImageItem={cross} Title={"You want to stop. click outside the box"} /></Box>
                     </Box>
                     <Box mb={3}>
                         <SearchCustom placeholder_Text={"Search by token name or address"} />
                     </Box>
+
+                    
 
                     {locations.map((location, index) => (
 
@@ -197,6 +206,17 @@ const DropdownTwo = () => {
                         </CustomMenuItem>
 
                     ))}
+
+
+                    <Box sx={{
+                        position:'absolute',
+                        bottom:'0.7rem',
+                        right:'0rem'
+                    }}>
+                    <ModalTwo />
+                    </Box>
+
+
                 </CustomSelect>
             </CustomFormControl>
         </Box>

@@ -9,6 +9,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     backgroundColor: '#3DC1F2',
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent:'center',
     gap: '1rem',
     textDecoration: 'none',
     padding: '8px 24px',

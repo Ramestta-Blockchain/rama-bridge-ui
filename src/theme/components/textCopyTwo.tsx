@@ -23,7 +23,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     color: theme.palette.primary.contrastText,
 }));
 
-const TextCopy = ({ text, address }: props) => {
+const TextCopyTwo = ({ text, address }: props) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleCopy = () => {
         copy(text);
@@ -57,10 +57,24 @@ const TextCopy = ({ text, address }: props) => {
                     onClose={handleCloseSnackbar}
                     message="Address copied"
 
+                    sx={{
+                        width: '100px !important',
+                        height: '60px !important',
+                        '& .MuiSnackbarContent-root': {
+                            width: '100%',
+                            height: '100%',
+                            boxShadow: 'none !important',
+                            color:`${theme.palette.primary.contrastText} !important`,
+                            padding: '0px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                        },
+                    }}
+
                 />
             </StyledBox>
         </>
     );
 };
 
-export default TextCopy;
+export default TextCopyTwo;
