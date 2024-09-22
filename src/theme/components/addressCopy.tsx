@@ -7,16 +7,16 @@ import React, { useState } from "react";
 interface props {
     text: any;
     address: any;
-    title: any;
+    
 }
 const StyledBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     justifyContent: 'space-between',
-    border: '1px solid #999',
+     backgroundColor:'#3DC1F2',
     padding: '0.5rem 1rem',
-    borderRadius: '8px',
+    borderRadius: '4px',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
@@ -25,7 +25,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     fontWeight: 300
 }));
 
-const AddressCopy = ({ text, address, title }: props) => {
+const AddressCopy = ({ text, address,  }: props) => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const handleCopy = () => {
         copy(text);
@@ -40,9 +40,9 @@ const AddressCopy = ({ text, address, title }: props) => {
     return (
         <>
             <StyledBox>
-                <Typography fontWeight={500} component={'span'}>{title} <StyledLink href={'#'}>
+                <StyledLink href={'#'}>
                     {address}
-                </StyledLink></Typography>
+                </StyledLink>
 
                 <Box onClick={handleCopy}>
                     <ContentCopyIcon sx={{ color: '#C0C3C9', width: 18 }} />

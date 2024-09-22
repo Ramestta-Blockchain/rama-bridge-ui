@@ -18,9 +18,10 @@ import Selector from '@/theme/components/selector';
 import HoverToolTwo from '@/theme/components/hoverToolTwo';
 import ConnectWallet from '../shared/connectWallet';
 import ButtonText from '@/theme/components/buttonText';
-import DropdownTwo from '@/theme/components/dropdownTwo';
+import DropdownTwo from '@/theme/components/dropdownThree';
 import Modal from '@/theme/components/modal';
 import ModalItem from './modalItem';
+import Link from 'next/link';
 
 const useStyles = makeStyles({
     hide: {
@@ -57,6 +58,13 @@ const useStyles = makeStyles({
     rotated: {
         transform: 'rotate(180deg)',
     },
+    thirdparty:{
+        textAlign:'center',
+        display:'block',
+        marginTop:'10px',
+        textDecoration:'none',
+       color:'#3dc1f2'
+    }
 });
 
 const BridgeCard = () => {
@@ -87,212 +95,7 @@ const BridgeCard = () => {
             <Grid container spacing={2}>
                 <Grid item lg={2.5} md={2.5} sm={12} xs={12}></Grid>
                 <Grid item lg={7} md={7} sm={12} xs={12}>
-                    <Box
-                        sx={{
-                            backgroundColor: theme.palette.secondary.contrastText,
-                            border: `1px solid ${theme.palette.primary.light}`,
-                            borderRadius: '4px',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                backgroundColor: theme.palette.background.default,
-                                borderRadius: '4px',
-                                padding: '10px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                            }}
-                        >
-                            <Typography>Bridge</Typography>
-                            <HoverTool
-                                ImageItem={theme.palette.mode === 'dark' ? tipd : tipl}
-                                Title={
-                                    'The Ramestta Native Bridge is a decentralized bridge for asset transfers between Polygon and RAMA networks.'
-                                }
-                            />
-                        </Box>
-
-                        <Box sx={{ padding: '10px' }}>
-                            <Typography>Transfer from</Typography>
-                            <Box
-                                sx={{
-                                    backgroundColor: theme.palette.secondary.light,
-                                    marginTop: '10px',
-                                    padding: '10px',
-                                    borderRadius: '8px',
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <Selector value={dropdownOneValue} onChange={setDropdownOneValue} />
-                                    <Typography color={'#999'}>
-                                        Balance:{' '}
-                                        <Typography component={'span'} color={theme.palette.primary.contrastText}>
-                                            0
-                                        </Typography>
-                                    </Typography>
-                                </Box>
-
-                                <Box
-                                    className={classes.flex_box2}
-                                    sx={{
-                                        backgroundColor: theme.palette.secondary.contrastText,
-                                        padding: '10px',
-                                        borderRadius: '6px',
-                                        marginTop: '10px',
-                                        '@media(max-width : 600px)': {
-                                            flexWrap: 'wrap',
-                                            justifyContent: 'center'
-                                        }
-
-                                    }}
-                                >
-                                    <Box>
-                                        <Typography variant="h6">0</Typography>
-                                    </Box>
-
-                                    <Box className={classes.flex_box}
-                                        sx={{
-                                            '@media(max-width : 600px)': {
-                                                flexWrap: 'wrap',
-                                                justifyContent: 'center',
-                                                gap: '5px'
-                                            }
-                                        }}
-                                    >
-                                        <Box className={classes.flex_box}>
-                                            <PercentageBtn Text={'25%'} />
-                                            <PercentageBtn Text={'50%'} />
-                                            <PercentageBtn Text={'Max'} />
-                                        </Box>
-                                        <Box
-                                            sx={{
-                                                backgroundColor: theme.palette.secondary.light,
-                                                width: '1px',
-                                                height: '50px',
-                                                '@media(max-width : 600px)': {
-                                                    display: 'none'
-                                                }
-                                            }}
-                                        />
-                                        <DropdownTwo />
-                                    </Box>
-                                </Box>
-                            </Box>
-
-                            <Box textAlign={'center'} my={2}>
-                                <Box
-                                    sx={{
-                                        display: 'inline-block',
-                                        backgroundColor: theme.palette.primary.main,
-                                        border: `1px solid ${theme.palette.secondary.light}`,
-                                        borderRadius: '40px',
-                                        padding: '4px',
-                                        cursor: 'pointer',
-                                    }}
-                                    onClick={handleSwap}
-                                    className={`${classes.rotateArrow} ${isRotated ? classes.rotated : ''}`}
-                                >
-                                    <Image src={transferArrow} alt={''} style={{ display: 'block' }} />
-                                </Box>
-                            </Box>
-
-                            <Box className={classes.flex_box2}
-                                sx={{
-                                    '@media(max-width : 600px)': {
-                                        flexWrap: 'wrap',
-                                        justifyContent: 'center',
-                                        gap: '5px'
-                                    }
-                                }}
-                            >
-                                <Box>
-                                    <Typography>Transfer To</Typography>
-                                </Box>
-                                <Box className={classes.flex_box}>
-                                    <Typography color={'#999'}>
-                                        + Transfer to different address
-                                    </Typography>
-                                    <HoverToolTwo
-                                        ImageItem={theme.palette.mode === 'dark' ? infod : infol}
-                                        Title={
-                                            'You can also transfer the requested amount to a different wallet address Than the connected wallet.'
-                                        }
-                                    />
-                                </Box>
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    backgroundColor: theme.palette.secondary.light,
-                                    marginTop: '10px',
-                                    padding: '10px',
-                                    borderRadius: '8px',
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <Selector value={dropdownTwoValue} onChange={setDropdownTwoValue} />
-                                    <Typography color={'#999'}>
-                                        Balance:{' '}
-                                        <Typography component={'span'} color={theme.palette.primary.contrastText}>
-                                            0
-                                        </Typography>
-                                    </Typography>
-                                </Box>
-                            </Box>
-
-                            <Box
-                                className={classes.flex_box2}
-                                sx={{
-                                    border: `1px solid ${theme.palette.secondary.light}`,
-                                    padding: '10px',
-                                    borderRadius: '6px',
-                                    marginTop: '1rem',
-                                }}
-                            >
-                                <Box className={classes.flex_box}>
-                                    <Typography>Refuel Gas</Typography>
-                                    <HoverTool
-                                        ImageItem={theme.palette.mode === 'dark' ? tipd : tipl}
-                                        Title={'Access tools and resources for the Polygon network.'}
-                                    />
-                                </Box>
-                                <Box className={classes.flex_box}>
-                                    <Typography>Not Supported</Typography>
-                                    <HoverTool
-                                        ImageItem={theme.palette.mode === 'dark' ? tipd : tipl}
-                                        Title={'This feature is currently not supported.'}
-                                    />
-                                </Box>
-                            </Box>
-                            {address ? (
-                                <Box mt={1.5}>
-                                    <ButtonText
-                                        ButtonText={'Enter Amount'} url={'#'} />
-                                </Box>
-                            ) : (
-                                <Button
-                                    sx={{ textTransform: 'capitalize' }}
-                                    onClick={openConnectModal}
-                                    className={classes.connectBridge}
-                                >
-                                    Connect Wallet and Bridge
-                                </Button>
-                            )}
-                        </Box>
-                    </Box>
+                    
                 </Grid>
                 <Grid item lg={2.5} md={2.5} sm={12} xs={12}>
 

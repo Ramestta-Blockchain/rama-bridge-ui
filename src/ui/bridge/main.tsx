@@ -5,6 +5,7 @@ import { Box, Grid, useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useContext } from 'react';
 import BridgeCard from './bridgeCard';
+import BridgeTab from './bridgeTab';
  
  
 
@@ -29,7 +30,7 @@ const Main = () => {
         <>
 
             <Box className={classes.mainDiv}>
-                <BridgeCard />
+                <BridgeTab />
             </Box>
 
         </>
