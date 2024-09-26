@@ -2,7 +2,7 @@ import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Box, B
 import SouthIcon from '@mui/icons-material/South';
 import { useContext, useState } from "react";
 import { ColorModeContext } from "@/context";
- 
+
 
 
 
@@ -20,23 +20,23 @@ const Accordion_list = [
     {
         id: 3,
         title: 'How do I cancel my transaction?',
-        text: "Once confirmed, the crypto transaction is irreversible. Neither you nor our specialists can cancel it. That's why we recommend you double-check (or even triple-check) the recipient's address." 
+        text: "Once confirmed, the crypto transaction is irreversible. Neither you nor our specialists can cancel it. That's why we recommend you double-check (or even triple-check) the recipient's address."
     },
-  
-     
+
+
 
 ]
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
-    
+
 
 }));
 
 const Faqs = () => {
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
-    
+
     const [expanded, setExpanded] = useState(false);
 
     const handleChange = (panel: any | any | ((prevState: any) => any)) => (event: any, isExpanded: any) => {
@@ -47,7 +47,7 @@ const Faqs = () => {
             <StyledBox>
 
 
-                 
+
                 <Grid container spacing={2}>
 
                     <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -73,19 +73,19 @@ const Faqs = () => {
                                 <AccordionSummary
 
                                     sx={{
-                                        fontSize:14,
+                                        fontSize: 14,
                                         fontWeight: 700,
-                                        color: expanded === `panel${index}` as any ? '#000' : '#fff',
-                                         
+                                        color: expanded === `panel${index}` as any ? "#000" : `${theme.palette.primary.contrastText}`,
+
                                     }}
-                                    expandIcon={<SouthIcon sx={{ color: expanded === `panel${index}` as any ? '#000' : '#fff' }} />}
+                                    expandIcon={<SouthIcon sx={{ color: expanded === `panel${index}` as any ? "#000" : `${theme.palette.primary.contrastText}` }} />}
                                     aria-controls={`panel${index}-content`}
                                     id={`panel${index}-header`}
 
                                 >
                                     {item.title}
                                 </AccordionSummary>
-                                <AccordionDetails sx={{fontSize:14}}>
+                                <AccordionDetails color={theme.palette.primary.contrastText} sx={{ fontSize: 14 }}>
 
                                     {item.text}
 
@@ -98,7 +98,7 @@ const Faqs = () => {
                 </Grid>
 
             </StyledBox>
- 
+
         </>
     )
 }

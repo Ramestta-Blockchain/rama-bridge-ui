@@ -44,6 +44,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import TextCopy from '@/theme/components/textCopy';
 import Faqs from './faqs';
 import VerticalStepper from './verticalStepper';
+import Transfer from './transfer';
+import SelectDrop from './selectDrop';
+ 
 
 
 interface TabPanelProps {
@@ -112,7 +115,7 @@ const useStyles = makeStyles({
             backgroundColor: '#3DC1F2',
         },
     },
-    save:{
+    save: {
         backgroundColor: '#3DC1F2 !important',
         textDecoration: 'none',
         padding: '10px 16px !important',
@@ -301,6 +304,54 @@ const Completed = [
 
 ];
 
+const initialLocationsData = [
+    {
+        id: 1,
+        name: 'USDT',
+        icon: usdtbsc,
+        description: 'Tether Binance Smart Chain',
+        Short: 'BSC',
+    },
+    {
+        id: 2,
+        name: 'USDT',
+        icon: usdtrx,
+        description: 'Tether Tron Chain',
+        Short: 'TRX',
+    },
+    {
+        id: 3,
+        name: 'RUSD',
+        icon: rama,
+        description: 'Ramestta Chain',
+        Short: 'RUSD',
+    },
+];
+
+const initialLocationsData2 = [
+    {
+        id: 1,
+        name: 'USDT',
+        icon: usdtbsc,
+        description: 'Tether Binance Smart Chain',
+        Short: 'BSC',
+    },
+    {
+        id: 2,
+        name: 'USDT',
+        icon: usdtrx,
+        description: 'Tether Tron Chain',
+        Short: 'TRX',
+    },
+    {
+        id: 3,
+        name: 'RUSD',
+        icon: rama,
+        description: 'Ramestta Chain',
+        Short: 'RUSD',
+    },
+];
+
 
 export default function BridgeTab() {
     const classes = useStyles();
@@ -352,6 +403,20 @@ export default function BridgeTab() {
 
     };
 
+    const [locationsData, setLocationsData] = useState(initialLocationsData);
+    const [locationsData2, setLocationsData2] = useState(initialLocationsData2);
+    const [isRotated2, setIsRotated2] = useState(false);
+
+    const handleSwap2 = () => {
+        // Swap the data between locationsData and locationsData2
+        const temp = locationsData;
+        setLocationsData(locationsData2);
+        setLocationsData2(temp);
+        
+        // Optionally toggle the rotated state for animation or UI feedback
+        setIsRotated2(!isRotated2);
+    };
+
     const renderStepContent = (step: number) => {
         switch (step) {
             case 0:
@@ -360,7 +425,7 @@ export default function BridgeTab() {
                         <Box>
                             <Grid container spacing={2}>
                                 <Grid item lg={7.6} md={7.6} sm={12} xs={12}>
-                                    <ThirdPartyBridge />
+                                    <Transfer onClick={handleOpen}/>
                                     <Box mt={2}>
                                         <Link style={{ color: theme.palette.primary.contrastText, textDecoration: 'none' }} href={''}                                    >
                                             <Box sx={{
@@ -487,7 +552,7 @@ export default function BridgeTab() {
                                             <Grid container spacing={2} mt={0.5}>
                                                 {checkoutBox.map((item, index) => (
                                                     <Grid key={index} item lg={6} md={6} sm={6} xs={12}>
-                                                        <Box   sx={{
+                                                        <Box sx={{
                                                             backgroundColor: theme.palette.secondary.contrastText,
                                                             border: `1px solid ${theme.palette.primary.light}`,
                                                             borderRadius: '4px',
@@ -700,7 +765,7 @@ export default function BridgeTab() {
 
                                         </Box>
                                         <FormControlLabel sx={{
-                                            marginTop:'10px',
+                                            marginTop: '10px',
                                             '.MuiFormControlLabel-label': {
                                                 fontSize: '14px', // Set your custom font size here
                                             },
@@ -790,7 +855,7 @@ export default function BridgeTab() {
                                             <Grid container spacing={2} mt={0.5}>
                                                 {Completed.map((item, index) => (
                                                     <Grid key={index} item lg={item.grid} md={item.grid} sm={6} xs={12}>
-                                                        <Box  sx={{
+                                                        <Box sx={{
 
                                                             height: '100%'
                                                         }}>
@@ -802,7 +867,7 @@ export default function BridgeTab() {
 
                                             </Grid>
 
-                                            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 1, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, }  }}>
+                                            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 1, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, } }}>
                                                 <Button
                                                     variant='outlined'
                                                     sx={{ textTransform: 'capitalize', }}
@@ -813,7 +878,7 @@ export default function BridgeTab() {
                                                 </Button>
                                                 <Button
                                                     variant='outlined'
-                                                    sx={{ textTransform: 'capitalize',  }}
+                                                    sx={{ textTransform: 'capitalize', }}
                                                     className={classes.connectBridgeOutline}
                                                     color="inherit"
                                                 >
@@ -821,7 +886,7 @@ export default function BridgeTab() {
                                                 </Button>
 
                                             </Box>
-                                            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 0.5, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, }  }}>
+                                            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 0.5, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, } }}>
                                                 <Button
                                                     variant='outlined'
                                                     sx={{ textTransform: 'capitalize', }}
@@ -893,135 +958,7 @@ export default function BridgeTab() {
             </Box>
         )
     }
-
-    const ThirdPartyBridge = () => {
-        return (
-            <Box
-                sx={{
-                    backgroundColor: theme.palette.secondary.contrastText,
-                    border: `1px solid ${theme.palette.primary.light}`,
-                    borderRadius: '4px',
-                }}
-            >
-
-
-                <Box sx={{ padding: '10px' }}>
-                    <Typography>You send</Typography>
-                    <Box
-                        sx={{
-                            backgroundColor: theme.palette.secondary.light,
-                            marginTop: '10px',
-                            padding: '10px',
-                            borderRadius: '8px',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                '@media(max-width : 1200px)': {
-                                    flexWrap: 'wrap',
-                                    '@media(max-width : 900px)': {
-                                        flexWrap: 'inherit',
-                                        '@media(max-width : 600px)': {
-                                            flexWrap: 'wrap',
-                                        }
-                                    }
-                                }
-                            }}
-                        >
-                            <DropdownThree locations={locationsData} defaultLocationId={1} />
-
-                            <Box sx={{
-                                textAlign: 'end',
-                                width: '100%'
-                            }}>
-                                <Typography fontSize={20} color={theme.palette.primary.contrastText}>
-                                    0.01
-                                </Typography>
-                                <Typography fontSize={12.5} color={'#3DC1F2'}>Min is 29.99309327 USDT</Typography>
-                            </Box>
-
-                        </Box>
-
-
-                    </Box>
-
-                    <Box textAlign={'center'} my={2}>
-                        <Box
-                            sx={{
-                                display: 'inline-block',
-                                backgroundColor: theme.palette.primary.main,
-                                border: `1px solid ${theme.palette.secondary.light}`,
-                                borderRadius: '40px',
-                                padding: '4px',
-                                cursor: 'pointer',
-                            }}
-                            onClick={handleSwap}
-                            className={`${classes.rotateArrow} ${isRotated ? classes.rotated : ''}`}
-                        >
-                            <Image src={transferArrow} alt={''} style={{ display: 'block' }} />
-                        </Box>
-                    </Box>
-
-                    <Box className={classes.flex_box2}
-                        sx={{
-                            '@media(max-width : 600px)': {
-                                flexWrap: 'wrap',
-                                justifyContent: 'center',
-                                gap: '5px'
-                            }
-                        }}
-                    >
-                        <Box>
-                            <Typography color={'#999'}>You get</Typography>
-                        </Box>
-
-                    </Box>
-
-                    <Box
-                        sx={{
-                            backgroundColor: theme.palette.secondary.light,
-                            marginTop: '10px',
-                            padding: '10px',
-                            borderRadius: '8px',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                '@media(max-width : 1200px)': {
-                                    flexWrap: 'wrap',
-                                    '@media(max-width : 900px)': {
-                                        flexWrap: 'inherit',
-                                        '@media(max-width : 600px)': {
-                                            flexWrap: 'wrap',
-                                        }
-                                    }
-                                }
-                            }}
-                        >
-                            <DropdownThree locations={locationsData2} defaultLocationId={3} />
-                            <Typography sx={{ textAlign: 'end', width: '100%' }} color={'#999'}>
-                                You get
-                            </Typography>
-                        </Box>
-                    </Box>
-
-
-                    <Button
-                        sx={{ textTransform: 'capitalize' }}
-                        className={classes.connectBridge}
-                        onClick={handleOpen} >
-                        Exchange Now
-                    </Button>
-                </Box>
-            </Box>
-        )
-    }
+ 
 
     const ButtonAll = () => {
         return (
@@ -1057,53 +994,7 @@ export default function BridgeTab() {
 
 
 
-    const locationsData = [
-        {
-            id: 1,
-            name: 'USDT',
-            icon: usdtbsc,
-            description: 'Tether Binance Smart Chain',
-            Short: 'BSC',
-        },
-        {
-            id: 2,
-            name: 'USDT',
-            icon: usdtrx,
-            description: 'Tether Tron Chain',
-            Short: 'TRX',
-        },
-        {
-            id: 3,
-            name: 'RUSD',
-            icon: rama,
-            description: 'Ramestta Chain',
-            Short: 'RUSD',
-        },
-    ];
-
-    const locationsData2 = [
-        {
-            id: 1,
-            name: 'USDT',
-            icon: usdtbsc,
-            description: 'Tether Binance Smart Chain',
-            Short: 'BSC',
-        },
-        {
-            id: 2,
-            name: 'USDT',
-            icon: usdtrx,
-            description: 'Tether Tron Chain',
-            Short: 'TRX',
-        },
-        {
-            id: 3,
-            name: 'RUSD',
-            icon: rama,
-            description: 'Ramestta Chain',
-            Short: 'RUSD',
-        },
-    ];
+    
     return (
         <Box>
 
@@ -1150,7 +1041,7 @@ export default function BridgeTab() {
 
                 <CustomTabPanel value={value} index={0}>
                     <Box mt={1.5}>
-                        <Grid container spacing={2}>
+                        {/* <Grid container spacing={2}>
                             <Grid item lg={2.5} md={2.5} sm={12} xs={12}></Grid>
                             <Grid item lg={6} md={7} sm={12} xs={12}>
                                 <Box
@@ -1425,7 +1316,8 @@ export default function BridgeTab() {
 
                                 </Box>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
+                        <SelectDrop/>
                     </Box>
                 </CustomTabPanel>
 
@@ -1475,10 +1367,10 @@ export default function BridgeTab() {
                         <Grid container spacing={2}>
                             <Grid item lg={2.5} md={2.5} sm={12} xs={12}>
                                 {activeStep === steps.length - 0 ?
-                                "":
-                                <SideElement />
+                                    "" :
+                                    <SideElement />
                                 }
-                               
+
                             </Grid>
                             <Grid item lg={9.5} md={9.5} sm={12} xs={12}>
                                 <Box sx={{ mt: 2, mb: 1 }}>
@@ -1491,11 +1383,9 @@ export default function BridgeTab() {
                             <Grid container spacing={2}>
                                 <Grid item lg={2.5} md={2.5} sm={12} xs={12}></Grid>
                                 <Grid item lg={6} md={7} sm={12} xs={12}>
-                                    <ThirdPartyBridge />
+                                    <Transfer onClick={handleOpen}/>
                                 </Grid>
                                 <Grid item lg={3.5} md={2.5} sm={12} xs={12}>
-
-
                                 </Grid>
                             </Grid>
                         </Box>
