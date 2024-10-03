@@ -193,10 +193,10 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                     <MenuItem key={location.id} value={location.id}>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <Box>
-                                                <Image src={location.icon} alt={location.name} width={36} height={36} />
+                                                <Image src={location.icon} alt={location.symbol} width={36} height={36} />
                                             </Box>
                                             <Box>
-                                                <Typography>{location.name} ({location.Short})</Typography>
+                                                <Typography>{location.symbol} ({location.Short})</Typography>
                                                 <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
                                                     <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
                                                     <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
@@ -324,10 +324,10 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                     <MenuItem key={location.id} value={location.id}>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <Box>
-                                                <Image src={location.icon} alt={location.name} width={36} height={36} />
+                                                <Image src={location.icon} alt={location.symbol} width={36} height={36} />
                                             </Box>
                                             <Box>
-                                                <Typography>{location.name} ({location.Short})</Typography>
+                                                <Typography>{location.symbol} ({location.Short})</Typography>
                                                 <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
                                                     <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
                                                     <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
