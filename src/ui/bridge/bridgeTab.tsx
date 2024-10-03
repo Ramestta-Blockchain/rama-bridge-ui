@@ -580,7 +580,7 @@ export default function BridgeTab() {
                         </Box>
                     </>
                 )
-            case 3:
+            case 1:
                 return (
                     <>
 
@@ -773,7 +773,7 @@ export default function BridgeTab() {
 
                     </>
                 )
-            case 1:
+            case 3:
                 return (
                     <>
 
