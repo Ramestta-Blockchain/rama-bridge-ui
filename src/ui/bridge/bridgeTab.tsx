@@ -580,7 +580,7 @@ export default function BridgeTab() {
                         </Box>
                     </>
                 )
-            case 1:
+            case 3:
                 return (
                     <>
 
@@ -773,7 +773,7 @@ export default function BridgeTab() {
 
                     </>
                 )
-            case 3:
+            case 1:
                 return (
                     <>
 
@@ -849,9 +849,9 @@ export default function BridgeTab() {
                                             borderRadius: '4px',
                                             padding: '1rem',
                                         }}>
-                                            <Typography variant='h6'>Exchanging</Typography>
+                                            <Typography variant='h6'>Exchanging... wait <CircularProgress color='success' size={20}/></Typography>
 
-                                            <VerticalStepper />
+                                            {/* <VerticalStepper /> */}
 
                                         </Box>
 
