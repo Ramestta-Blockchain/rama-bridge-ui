@@ -2,15 +2,19 @@ import axios from "axios";
 import ApiConfigs from "..";
 
 
-export const bankBalance = async (address:string) => {
+export const txDetailById = async (id:string) => {
     try {
         const { data } = await axios({
             method: 'GET',
-            url: `${ApiConfigs.bankBalance}/${address}`
+            url: ApiConfigs.txById,
+            params: {
+                id: id
+            }
         })
         
         return data
     } catch (error) {
+console.log(error);
 
     }
 }

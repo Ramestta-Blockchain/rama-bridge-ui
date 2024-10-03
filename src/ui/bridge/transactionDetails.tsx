@@ -25,28 +25,6 @@ interface TransactionDetailsProps {
   items: ListItem[];
 }
 
-const List = [
-  {
-    title: "You send",
-    data: "100 USDT20"
-  },
-  {
-    title: "Exchange rate",
-    data: "1 BSC ~ 0.14993729 USDT20"
-  },
-  {
-    title: "Service fee 0.25%",
-    data: "1.667587 BNB"
-  },
-  {
-    title: "Network fee",
-    data: "7.428473 BNB"
-  },
-  {
-    title: "You get",
-    data: "~ 657.799677 BNB"
-  },
-]
 
 const TransactionDetails = ({ items }: TransactionDetailsProps) => {
   const classes = useStyles();

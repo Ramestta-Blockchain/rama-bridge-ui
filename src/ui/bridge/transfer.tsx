@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Box, Grid, Select, MenuItem, Button, Avatar, Typography, useTheme, SelectChangeEvent } from '@mui/material';
+import { Box, Grid, Select, MenuItem, Button, Avatar, Typography, useTheme, SelectChangeEvent, InputBase } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { ColorModeContext } from '@/context';
 import Image from 'next/image';
@@ -7,6 +7,7 @@ import transferArrow from '../../icons/asset/transferArrow.svg';
 import usdtbsc from '../../icons/asset/usdtbsc.svg';
 import usdtrx from '../../icons/asset/usdtrx.svg';
 import rama from '../../icons/asset/lgsheild.svg';
+import { initialLocationsData } from './bridgeTab';
 
 
 const useStyles = makeStyles({
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
     connectBridge: {
         backgroundColor: '#3DC1F2 !important',
         textDecoration: 'none',
+        color: '#000 !important',
         padding: '10px 16px !important',
         borderRadius: '6px !important',
         transition: '0.5s',
@@ -76,81 +78,67 @@ const useStyles = makeStyles({
         color: '#3dc1f2'
     }
 });
-// Initial Data
-const initialLocationsData2 = [
-    {
-        id: 1,
-        name: 'USDT',
-        icon: usdtbsc,
-        description: 'Tether Binance Smart Chain',
-        Short: 'BSC',
-    },
-    {
-        id: 2,
-        name: 'USDT',
-        icon: usdtrx,
-        description: 'Tether Tron Chain',
-        Short: 'TRX',
-    },
-    {
-        id: 3,
-        name: 'RUSD',
-        icon: rama,
-        description: 'Ramestta Chain',
-        Short: 'RUSD',
-    },
-];
 
 
-interface props{
-    onClick:any;
+interface props {
+    fromValue: string,
+    setFromValue: any,
+    toValue: string
+    setToValue: any,
+    onClick: any;
+    selected1: number,
+    setSelected1: any,
+    selected2: number,
+    setSelected2: any,
+    open?: boolean,
 }
-const Transfer = ({onClick}:props) => {
+const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selected1, setSelected1, selected2, setSelected2, open }: props) => {
     const classes = useStyles();
     const colorMode = useContext(ColorModeContext);
     const theme = useTheme();
     const [isRotated2, setIsRotated2] = useState(false);
-    
-    const [selected1, setSelected1] = useState<number>(1); // Default to id 1
-    const [selected2, setSelected2] = useState<number>(2); // Default to id 2
-    
+
+    // const [selected1, setSelected1] = useState<number>(1); // Default to id 1
+    // const [selected2, setSelected2] = useState<number>(2); // Default to id 2
+
     const handleSelect1Change = (event: SelectChangeEvent<number>) => {
         const value = event.target.value as number;
         setSelected1(value);
-  
-      // If the new selection matches selected2, reset selected2
-      if (value === selected2) {
-        const availableIds = initialLocationsData2.filter(loc => loc.id !== value);
-        setSelected2(availableIds[0].id); // Select the first available ID
-      }
-    };
-  
-    const handleSelect2Change = (event: SelectChangeEvent<number>) => {
-      const value = event.target.value as number;
-      setSelected2(value);
-  
-      // If the new selection matches selected1, reset selected1
-      if (value === selected1) {
-        const availableIds = initialLocationsData2.filter(loc => loc.id !== value);
-        setSelected1(availableIds[0].id); // Select the first available ID
-      }
-    };
-  
-    const handleTransfer = () => {
-      const temp = selected1;
-      setSelected1(selected2);
-      setSelected2(temp);
-      setIsRotated2(!isRotated2);
-    };
-  
-    // Filter logic to prevent selecting the same ID in both dropdowns
-    const availableLocations1 = initialLocationsData2.filter(location => location.id !== selected2);
-    const availableLocations2 = initialLocationsData2.filter(location => location.id !== selected1);
 
-    
+        // If the new selection matches selected2, reset selected2
+        if (value === selected2) {
+            const availableIds = initialLocationsData.filter(loc => loc.id !== value);
+            setSelected2(availableIds[0].id); // Select the first available ID
+        }
+    };
+
+    const handleSelect2Change = (event: SelectChangeEvent<number>) => {
+        const value = event.target.value as number;
+        setSelected2(value);
+
+        // If the new selection matches selected1, reset selected1
+        if (value === selected1) {
+            const availableIds = initialLocationsData.filter(loc => loc.id !== value);
+            setSelected1(availableIds[0].id); // Select the first available ID
+        }
+    };
+
+    const handleTransfer = () => {
+        const temp = selected1;
+        setSelected1(selected2);
+        setSelected2(temp);
+        setIsRotated2(!isRotated2);
+    };
+
+    // Filter logic to prevent selecting the same ID in both dropdowns
+    const availableLocations1 = initialLocationsData.filter(location => location.id !== selected2);
+    const availableLocations2 = initialLocationsData.filter(location => location.id !== selected1);
+
+
+
     return (
         <>
-            
+
 
             <Box
                 sx={{
@@ -185,48 +173,78 @@ const Transfer = ({onClick}:props) => {
                                 }
                             }}
                         >
-                            <Select  sx={{
-                        height: '52px',
-                        backgroundColor: theme.palette.primary.main,
-                        boxShadow: 'none',
-                        borderRadius: '6px',
-                        border: '1px solid transparent',
-                        padding: '0px', // Zero padding
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'transparent',
-                            boxShadow: 'inherit',
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'transparent',
-                            boxShadow: 'inherit',
-                        },
-                    }} value={selected1} onChange={handleSelect1Change}>
-                            {availableLocations1.map((location) => (
-                                <MenuItem  key={location.id} value={location.id}>
-                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                   <Box>
-                                   <Image src={location.icon} alt={location.name}  width={36} height={36} />
-                                   </Box>
-                                  <Box>
-                                  <Typography>{location.name} ({location.Short})</Typography>
-                                   <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                                        <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
-                                        <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
-                                    </Box>
-                                   </Box>
-                                  </Box>
-                                </MenuItem>
-                            ))}
-                        </Select>
+                            <Select sx={{
+                                height: '52px',
+                                backgroundColor: theme.palette.primary.main,
+                                boxShadow: 'none',
+                                borderRadius: '6px',
+                                border: '1px solid transparent',
+                                padding: '0px', // Zero padding
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'transparent',
+                                    boxShadow: 'inherit',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'transparent',
+                                    boxShadow: 'inherit',
+                                },
+                            }} value={selected1} onChange={handleSelect1Change}>
+                                {availableLocations1.map((location) => (
+                                    <MenuItem key={location.id} value={location.id}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                            <Box>
+                                                <Image src={location.icon} alt={location.name} width={36} height={36} />
+                                            </Box>
+                                            <Box>
+                                                <Typography>{location.name} ({location.Short})</Typography>
+                                                <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                                                    <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
+                                                    <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                    </MenuItem>
+                                ))}
+                            </Select>
 
                             <Box sx={{
                                 textAlign: 'end',
-                                width: '100%'
+                                width: '100%',
+                                padding: '8px 10px',
+                                marginTop: '1rem'
                             }}>
-                                <Typography fontSize={20} color={theme.palette.primary.contrastText}>
-                                    0.01
-                                </Typography>
-                                <Typography fontSize={12.5} color={'#3DC1F2'}>Min is 29.99309327 USDT</Typography>
+                                {/* <Typography fontSize={20} color={theme.palette.primary.contrastText}>
+                                    0.5
+                                </Typography> */}
+                                <Box>
+                                    <InputBase
+                                        onChange={(e) => { setFromValue(e.target.value); setToValue(e.target.value) }}
+                                        value={toValue || fromValue}
+                                        sx={{
+                                            flex: 1, color: theme.palette.primary.contrastText,
+                                            width: '100%',
+                                            fontSize: 20,
+                                            '& input': {
+                                                '-moz-appearance': 'textfield', // Firefox
+                                                '&::-webkit-outer-spin-button': {
+                                                    '-webkit-appearance': 'none', // Chrome, Safari, Edge
+                                                    margin: 0,
+                                                },
+                                                '&::-webkit-inner-spin-button': {
+                                                    '-webkit-appearance': 'none', // Chrome, Safari, Edge
+                                                    margin: 0,
+                                                },
+                                            },
+                                        }}
+                                        placeholder={'0'}
+                                        type="number"
+
+                                        inputProps={{ 'aria-label': 'search google maps' }}
+                                    />
+                                </Box>
+                                {
+                                   (Number(toValue)!==0 && Number(toValue)<25) && <Typography fontSize={12.5} color={'#3DC1F2'}>Min is 25 USDT</Typography>
+                                }
                             </Box>
                         </Box>
                     </Box>
@@ -286,51 +304,82 @@ const Transfer = ({onClick}:props) => {
                                 }
                             }}
                         >
-                             <Select  sx={{
-                        height: '52px',
-                        backgroundColor: theme.palette.primary.main,
-                        boxShadow: 'none',
-                        borderRadius: '6px',
-                        border: '1px solid transparent',
-                        padding: '0px', // Zero padding
-                        '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'transparent',
-                            boxShadow: 'inherit',
-                        },
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'transparent',
-                            boxShadow: 'inherit',
-                        },
-                    }} value={selected2} onChange={handleSelect2Change}>
-                            {availableLocations2.map((location) => (
-                                <MenuItem  key={location.id} value={location.id}>
-                                   <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                   <Box>
-                                   <Image src={location.icon} alt={location.name}  width={36} height={36} />
-                                   </Box>
-                                  <Box>
-                                  <Typography>{location.name} ({location.Short})</Typography>
-                                   <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                                        <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
-                                        <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
-                                    </Box>
-                                   </Box>
-                                  </Box>
-                                </MenuItem>
-                            ))}
-                        </Select>
-                            <Typography sx={{ textAlign: 'end', width: '100%' }} color={'#999'}>
-                                You get
-                            </Typography>
+                            <Select sx={{
+                                height: '52px',
+                                backgroundColor: theme.palette.primary.main,
+                                boxShadow: 'none',
+                                borderRadius: '6px',
+                                border: '1px solid transparent',
+                                padding: '0px', // Zero padding
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'transparent',
+                                    boxShadow: 'inherit',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'transparent',
+                                    boxShadow: 'inherit',
+                                },
+                            }} value={selected2} onChange={handleSelect2Change}>
+                                {availableLocations2.map((location) => (
+                                    <MenuItem key={location.id} value={location.id}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                            <Box>
+                                                <Image src={location.icon} alt={location.name} width={36} height={36} />
+                                            </Box>
+                                            <Box>
+                                                <Typography>{location.name} ({location.Short})</Typography>
+                                                <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                                                    <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
+                                                    <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            <Box>
+                                <InputBase
+                                    onChange={(e) => { setFromValue(e.target.value); setToValue(e.target.value) }}
+                                    value={fromValue || toValue}
+                                    sx={{
+                                        flex: 1, color: theme.palette.primary.contrastText,
+                                        width: '100%',
+                                        fontSize: 20,
+                                        '& input': {
+                                            '-moz-appearance': 'textfield', // Firefox
+                                            '&::-webkit-outer-spin-button': {
+                                                '-webkit-appearance': 'none', // Chrome, Safari, Edge
+                                                margin: 0,
+                                            },
+                                            '&::-webkit-inner-spin-button': {
+                                                '-webkit-appearance': 'none', // Chrome, Safari, Edge
+                                                margin: 0,
+                                            },
+                                        },
+                                    }}
+                                    placeholder={'0'}
+                                    type="number"
+
+                                    inputProps={{ 'aria-label': 'search google maps' }}
+                                />
+                            </Box>
                         </Box>
                     </Box>
 
-                    <Button
-                        sx={{ textTransform: 'capitalize' }}
+                    {!open && <Button
+                        sx={{
+                             textTransform: 'capitalize',
+                             opacity: !(
+                                ((toValue)==='' && Number(toValue)<25)
+                            )
+                                ? "1" : '0.3'
+                             }}
+                        disabled={((toValue)==='' && Number(toValue)<25)}
                         className={classes.connectBridge}
-                         onClick={onClick}>
+                        onClick={onClick}>
                         Exchange Now
                     </Button>
+                    }
                 </Box>
             </Box>
         </>

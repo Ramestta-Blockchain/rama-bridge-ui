@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Button, Chip, Grid, InputBase, StepContent, styled, useTheme } from '@mui/material';
+import { Button, Chip, CircularProgress, Grid, InputBase, StepContent, styled, useTheme } from '@mui/material';
 import { ColorModeContext } from '@/context';
 import { makeStyles } from '@mui/styles';
 import Empty from '../asset/empty';
@@ -46,7 +46,11 @@ import Faqs from './faqs';
 import VerticalStepper from './verticalStepper';
 import Transfer from './transfer';
 import SelectDrop from './selectDrop';
- 
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { txDetailById } from '@/lib/api/rest/thirdParty/txDetailById';
+import { createTx } from '@/lib/api/rest/thirdParty/createTx';
+import { formatEther, formatUnits, parseEther, parseUnits } from 'viem';
+
 
 
 interface TabPanelProps {
@@ -106,6 +110,7 @@ const useStyles = makeStyles({
     connectBridge: {
         backgroundColor: '#3DC1F2 !important',
         textDecoration: 'none',
+        color: '#000 !important',
         padding: '10px 16px !important',
         borderRadius: '6px !important',
         transition: '0.5s',
@@ -133,6 +138,7 @@ const useStyles = makeStyles({
         borderRadius: '6px !important',
         transition: '0.5s',
         width: '100%',
+        color: '#fff !important',
         marginTop: '1rem !important',
         border: '1px solid #1D1D20 !important',
         '&:hover': {
@@ -174,184 +180,52 @@ const steps = [
 ];
 
 
-const List = [
-    {
-        title: "You send",
-        data: "100 USDT20"
-    },
-    {
-        title: "Exchange rate",
-        data: "1 BSC ~ 0.14993729 USDT20"
-    },
-    {
-        title: "Service fee 0.25%",
-        data: "1.667587 BNB"
-    },
-    {
-        title: "Network fee",
-        data: "7.428473 BNB"
-    },
-    {
-        title: "You get",
-        data: "~ 657.799677 BNB"
-    },
-];
-
-const List2 = [
-    {
-        title: "Transaction ID",
-        data: "upq1123i1glgdtnz"
-    },
-    {
-        title: "You sent",
-        data: "0.056 BNBBSC"
-    },
-    {
-        title: "Ramestta address",
-        data: "0xbE97d054CB8f0Af6524Beb00a3AB3a97e5676A5d"
-    },
-    {
-        title: "Recipient address (BNBBSC)",
-        data: "0xbE97d054CB8f0Af6524Beb00a3AB3a97e5676A5d"
-    },
-    {
-        title: "Exchange rate",
-        data: "1 BNBBSC ~ 539.06426065 USDTBSC"
-    },
-    {
-        title: "You get",
-        data: "~ 29.98885712 USDTBSC"
-    },
-];
 
 
-const checkoutBox = [
-    {
-        title: "You send",
-        data: "0.1 BTC",
-        blockchain: "bitcoin",
-        color: '#17AF09',
-    },
-    {
-        title: "You get",
-        data: "~2.57420729 ETH",
-        blockchain: "Ethereum",
-        color: '#17AF09',
-    },
-    {
-        title: "Exchange fee",
-        data: "0.00645271 ETH",
-        blockchain: "The exchange fee already Included in the displayed amount you’ll get",
-        color: '#999',
-    },
-    {
-        title: "Network fee",
-        data: "0.00042460 ETH",
-        blockchain: "The network fee already Included in the displayed amount you’ll get",
-        color: '#999',
-    },
-    {
-        title: "Recipient address",
-        data: "0xbE97d054CB8f0Af6524Beb00a3AB3a97e5676A5d",
-        color: '#17AF09',
-    },
-    {
-        title: "Exchange rate",
-        data: "1 BTC ~ 25.8108406 ETH",
-        color: '#17AF09',
-    },
 
 
-];
 
-const Completed = [
-    {
-        title: "Amount from",
-        data: "0.0056 BNBBSC",
-        grid: 6,
-    },
-    {
-        title: "Amount to",
-        data: "29.96397073 USDTBSC",
-        grid: 6,
-    },
-    {
-        title: "Amount received",
-        data: "18 Sep 2024, 16:40:21",
-        grid: 6,
-    },
-    {
-        title: "Amount sent",
-        data: "18 Sep 2024, 16:44:12",
-        grid: 6,
-    },
-    {
-        title: "Exchange rate",
-        data: "1 BNBBSC ~ 538.61323001 USDTBSC",
-        grid: 6,
-    },
-    {
-        title: "Network fee",
-        data: "0.12327248 USDTBSC",
-        grid: 6,
-    },
-    {
-        title: "Recipient address",
-        data: "0xbE97d054CB8f0Af6524Beb00a3AB3a97e5676A5d",
-        grid: 12,
-    },
-
-
-];
-
-const initialLocationsData = [
+export const initialLocationsData = [
     {
         id: 1,
-        name: 'USDT',
+        symbol: 'USDT',
+        name: 'BEP20',
+        decimal: 18,
         icon: usdtbsc,
         description: 'Tether Binance Smart Chain',
+        contractAddress: '0x55d398326f99059fF775485246999027B3197955',
         Short: 'BSC',
+        Long: "binance_smart_chain",
+        chain: 'bsc',
+        explorer:"https://bscscan.com"
     },
     {
         id: 2,
-        name: 'USDT',
-        icon: usdtrx,
-        description: 'Tether Tron Chain',
-        Short: 'TRX',
-    },
-    {
-        id: 3,
-        name: 'RUSD',
+        symbol: 'RUSD',
+        name: 'RAMA20',
+        decimal: 18,
         icon: rama,
         description: 'Ramestta Chain',
-        Short: 'RUSD',
+        contractAddress: '0x2A32e2102467135E22Ca015277E397E9f3B85AF2',
+        Short: 'Ramestta',
+        Long: 'ramestta',
+        chain: 'ramestta',
+        explorer:"https://ramascan.com"
     },
+    // {
+    //     id: 3,
+    //     symbol: 'USDT',
+    //     name: 'TRC20',
+    //     decimal: 6,
+    //     icon: usdtrx,
+    //     description: 'Tether Tron Chain',
+    //     contractAddress: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
+    //     Short: 'TRX',
+    //     Long: 'tron',
+    //     chain: 'tron'
+    //     explorer: https://tronscan.org
+    // },
 ];
-
-const initialLocationsData2 = [
-    {
-        id: 1,
-        name: 'USDT',
-        icon: usdtbsc,
-        description: 'Tether Binance Smart Chain',
-        Short: 'BSC',
-    },
-    {
-        id: 2,
-        name: 'USDT',
-        icon: usdtrx,
-        description: 'Tether Tron Chain',
-        Short: 'TRX',
-    },
-    {
-        id: 3,
-        name: 'RUSD',
-        icon: rama,
-        description: 'Ramestta Chain',
-        Short: 'RUSD',
-    },
-];
-
 
 export default function BridgeTab() {
     const classes = useStyles();
@@ -367,6 +241,7 @@ export default function BridgeTab() {
 
     const [dropdownOneValue, setDropdownOneValue] = useState<string>('MATIC');
     const [dropdownTwoValue, setDropdownTwoValue] = useState<string>('RAMA');
+    const [recipientAddress, setRecipientAddress] = useState('')
 
     // State for arrow rotation
     const [isRotated, setIsRotated] = useState(false);
@@ -385,7 +260,7 @@ export default function BridgeTab() {
     const [open, setOpen] = useState(false);
 
 
-    const handleNext = () => {
+    const handleNext = async () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
@@ -403,19 +278,180 @@ export default function BridgeTab() {
 
     };
 
-    const [locationsData, setLocationsData] = useState(initialLocationsData);
-    const [locationsData2, setLocationsData2] = useState(initialLocationsData2);
+    // const [locationsData, setLocationsData] = useState(initialLocationsData);
+    // const [locationsData2, setLocationsData2] = useState(initialLocationsData2);
     const [isRotated2, setIsRotated2] = useState(false);
 
-    const handleSwap2 = () => {
-        // Swap the data between locationsData and locationsData2
-        const temp = locationsData;
-        setLocationsData(locationsData2);
-        setLocationsData2(temp);
+    // from and to value 3rd party (transfer component)
+    const [fromValue, setFromValue] = useState('');
+    const [toValue, setToValue] = useState('');
+    const [selected1, setSelected1] = useState<number>(1); // Default to id 1
+    const [selected2, setSelected2] = useState<number>(2); // Default to id 2
+    // end
+
+
+    // const handleSwap2 = () => {
+    //     // Swap the data between locationsData and locationsData2
+    //     const temp = locationsData;
+    //     setLocationsData(locationsData2);
+    //     setLocationsData2(temp);
+
+    //     // Optionally toggle the rotated state for animation or UI feedback
+    //     setIsRotated2(!isRotated2);
+    // };
+
+    const getSelectInfo = (selected: number) => {
+        return initialLocationsData.find((item) => item.id == selected);
+    }
+
+
+    const { data:mutateData,mutateAsync,isPending,isSuccess } = useMutation({
+        mutationFn:  (body:any) => {
+            return  createTx(body)
+        }
+        ,
+        onSuccess(data, variables, context) {
+            handleNext()
+        },
+        onError(error, variables, context) {
+            if(error.name==='AxiosError'){
+                handleBack()
+            }
+        },
+    })
+
+
+
+    const { data: txDetail } = useQuery({
+        queryKey: ['txDetailById',mutateData?.data._id],
+        queryFn: () => {
+            return txDetailById(mutateData?.data._id)
+        }
+        ,
+    })
+
+
+
+    React.useEffect(()=>{
         
-        // Optionally toggle the rotated state for animation or UI feedback
-        setIsRotated2(!isRotated2);
-    };
+        if(activeStep ===2 && txDetail?.data?.txStatus==='completed'){
+            
+            handleNext()
+        }
+    },[activeStep,txDetail])
+
+    React.useEffect(()=>{
+        
+        if(activeStep===3 && txDetail?.data?.settlementStatus==='completed'){
+            console.log(txDetail?.data?.settlementStatus==='completed');
+            
+            
+            handleNext()
+        }
+    },[activeStep,txDetail])
+
+    const List = [
+        {
+            title: "You send",
+            data: `${fromValue} ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short}`
+        },
+        {
+            title: "Exchange rate",
+            data: `1 ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short} ~ 1 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`
+        },
+        {
+            title: "Service fee 0.25%",
+            data: `${(Number(toValue) * 0.0025).toFixed(2)} ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`
+        },
+        {
+            title: "Network fee",
+            data: `0 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`
+        },
+        {
+            title: "You get",
+            data: `~${(Number(toValue) * 0.9975).toFixed(2)} ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`
+        },
+    ];
+
+    const checkoutBox = [
+        {
+            title: "You send",
+            data: `${fromValue} ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short}`,
+            blockchain: `${getSelectInfo(selected1)?.Long}`,
+            color: '#17AF09',
+        },
+        {
+            title: "You get",
+            data: `~${(Number(toValue) * 0.9975).toFixed(2)} ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            blockchain: `${getSelectInfo(selected2)?.Long}`,
+            color: '#17AF09',
+        },
+        {
+            title: "Exchange fee",
+            data: `${(Number(toValue) * 0.0025).toFixed(2)} ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            blockchain: "The exchange fee already Included in the displayed amount you’ll get",
+            color: '#999',
+        },
+        {
+            title: "Network fee",
+            data: `0 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            blockchain: "The network fee already Included in the displayed amount you’ll get",
+            color: '#999',
+        },
+        {
+            title: "Recipient address",
+            data: recipientAddress,
+            color: '#17AF09',
+        },
+        {
+            title: "Exchange rate",
+            data: `1 ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short} ~ 1 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            color: '#17AF09',
+        },
+
+
+    ];
+
+    const Completed = [
+        {
+            title: "Amount from",
+            data: `${formatUnits(BigInt(txDetail?txDetail?.data?.fromAmountInWei:0),Number(getSelectInfo(selected1)?.decimal))} ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short}`,
+            grid: 6,
+        },
+        {
+            title: "Amount to",
+            data: `${formatUnits(BigInt(txDetail?txDetail?.data?.toAmountInWei:0),Number(getSelectInfo(selected2)?.decimal))} ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            grid: 6,
+        },
+        {
+            title: "Amount received",
+            data:  `${txDetail?.data?.amountReceivedAt}`,
+            grid: 6,
+        },
+        {
+            title: "Amount sent",
+            data:  `${txDetail?.data?.amountSentAt}`,
+            grid: 6,
+        },
+        {
+            title: "Exchange rate",
+            data: `1 ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short} ~ 1 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            grid: 6,
+        },
+        {
+            title: "Network fee",
+            data: `0 ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short}`,
+            grid: 6,
+        },
+        {
+            title: "Recipient address",
+            data: txDetail?.data?.receiverAddress,
+            grid: 12,
+        },
+    
+    
+    ];
+
 
     const renderStepContent = (step: number) => {
         switch (step) {
@@ -425,7 +461,18 @@ export default function BridgeTab() {
                         <Box>
                             <Grid container spacing={2}>
                                 <Grid item lg={7.6} md={7.6} sm={12} xs={12}>
-                                    <Transfer onClick={handleOpen}/>
+                                    <Transfer
+                                        fromValue={fromValue}
+                                        setFromValue={setFromValue}
+                                        toValue={toValue}
+                                        setToValue={setToValue}
+                                        selected1={selected1}
+                                        selected2={selected2}
+                                        setSelected1={setSelected1}
+                                        setSelected2={setSelected2}
+                                        open={open}
+                                        onClick={handleOpen}
+                                    />
                                     <Box mt={2}>
                                         <Link style={{ color: theme.palette.primary.contrastText, textDecoration: 'none' }} href={''}                                    >
                                             <Box sx={{
@@ -445,7 +492,7 @@ export default function BridgeTab() {
                                                     <Typography>Floating rate</Typography>
                                                 </Box>
                                                 <Box>
-                                                    <Typography>~657.0056</Typography>
+                                                    <Typography>~1</Typography>
                                                 </Box>
                                             </Box>
                                         </Link>
@@ -479,6 +526,8 @@ export default function BridgeTab() {
                                                 <Box>
                                                     <Typography>Recipient address</Typography>
                                                     <InputBase
+                                                        onChange={(e) => setRecipientAddress(e.target.value)}
+                                                        value={recipientAddress}
                                                         sx={{
                                                             flex: 1, color: theme.palette.primary.contrastText,
                                                             width: '100%',
@@ -495,7 +544,7 @@ export default function BridgeTab() {
                                                                 },
                                                             },
                                                         }}
-                                                        placeholder={'Enter your BNB Recipient address'}
+                                                        placeholder={`Enter your ${getSelectInfo(selected2)?.symbol}${getSelectInfo(selected2)?.Short} Recipient address`}
                                                         type="text"
 
                                                         inputProps={{ 'aria-label': 'search google maps' }}
@@ -519,7 +568,9 @@ export default function BridgeTab() {
                                             }} defaultChecked />} label="I agree to the Terms of Use, Privacy Policy and AML/KYC" />
 
                                         </Box>
+
                                         <ButtonAll />
+
                                     </Box>
                                 </Grid>
                                 <Grid item lg={4.4} md={4.4} sm={12} xs={12}>
@@ -627,7 +678,11 @@ export default function BridgeTab() {
                                                         </Box>
                                                         <Box  >
 
-                                                            <Typography fontSize={15} sx={{ wordBreak: 'break-all' }}>100 USDT20</Typography>
+                                                            <Typography fontSize={15} sx={{ wordBreak: 'break-all' }}>
+                                                                {
+                                                                    `${fromValue} ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short}`
+                                                                }
+                                                            </Typography>
 
                                                         </Box>
                                                     </Box>
@@ -640,7 +695,7 @@ export default function BridgeTab() {
                                                         }
                                                     }}>
                                                         <Box  >
-                                                            <Typography color={'#999999'}>Ramestta address (USDT20)</Typography>
+                                                            <Typography color={'#999999'}>Portal address ({getSelectInfo(selected1)?.symbol}{getSelectInfo(selected1)?.Short})</Typography>
 
                                                         </Box>
                                                         <Box  >
@@ -649,7 +704,7 @@ export default function BridgeTab() {
                                                                 wordBreak: 'break-all', textAlign: 'end', '@media(max-width : 1200px)': {
                                                                     textAlign: 'left'
                                                                 }
-                                                            }}>0xc21e16feec44e463ca9eeecc38cf8d124c76676d</Typography>
+                                                            }}>{mutateData?.data.depositAddress}</Typography>
                                                             <Box sx={{
                                                                 display: 'flex',
                                                                 gap: '10px',
@@ -663,14 +718,14 @@ export default function BridgeTab() {
                                                                     backgroundColor: '#999999',
                                                                     padding: '2px 5px',
                                                                     borderRadius: '4px'
-                                                                }} fontSize={14} color={'#000'}>ERC20</Typography>
-                                                                <Typography fontSize={14} color={'#17AF09'}>blockchain: ethereum</Typography>
+                                                                }} fontSize={14} color={'#000'}>{getSelectInfo(selected1)?.name}</Typography>
+                                                                <Typography fontSize={14} color={'#17AF09'}>blockchain: {getSelectInfo(selected1)?.Long}</Typography>
                                                             </Box>
                                                         </Box>
                                                     </Box>
 
                                                     <Box mt={2}>
-                                                        <AddressCopy text={address} address={"Copy Address"} />
+                                                        <AddressCopy text={mutateData?.data.depositAddress} address={"Copy Address"} />
                                                     </Box>
                                                     <Box sx={{
                                                         display: 'flex',
@@ -688,7 +743,7 @@ export default function BridgeTab() {
 
 
                                         </Box>
-                                        <ButtonAll />
+                                  
                                     </Box>
                                 </Grid>
                                 <Grid item lg={4.4} md={4.4} sm={12} xs={12}>
@@ -699,10 +754,14 @@ export default function BridgeTab() {
                                         padding: '1rem',
                                         marginBottom: '10px',
                                     }}>
-                                        <Typography variant="h6">01:46:43</Typography>
-                                        <Typography color={'#999'} fontSize={14}>Time left to send 100 USDT20</Typography>
+                                        <Typography variant="h6">00:14:59</Typography>
+                                        <Typography color={'#999'} fontSize={14}>Time left to send
+                                            {" "}{
+                                                `${fromValue} ${getSelectInfo(selected1)?.symbol}${getSelectInfo(selected1)?.Short}`
+                                            }
+                                        </Typography>
                                         <Box>
-                                            <TextCopy text={address} address={"1xhtazyaesb0o0r1"} />
+                                            <TextCopy text={address} address={`${mutateData?.data._id}`} />
                                             <Typography color={'#999'} fontSize={14} mt={-1.5}>Transaction ID</Typography>
                                         </Box>
                                     </Box>
@@ -721,7 +780,7 @@ export default function BridgeTab() {
                         <Box>
                             <Grid container spacing={2}>
                                 <Grid item lg={7.6} md={7.6} sm={12} xs={12}>
-                                    <Box sx={{
+                                    {/* <Box sx={{
                                         backgroundColor: theme.palette.secondary.contrastText,
                                         border: `1px solid ${theme.palette.primary.light}`,
                                         borderRadius: '4px',
@@ -782,7 +841,7 @@ export default function BridgeTab() {
                                         >
                                             Save
                                         </Button>
-                                    </Box>
+                                    </Box> */}
                                     <Box mt={2}>
                                         <Box sx={{
                                             backgroundColor: theme.palette.secondary.contrastText,
@@ -814,10 +873,10 @@ export default function BridgeTab() {
 
                                         </Box>
                                     </Box>
-                                    <ButtonAll />
+                                    {/* <ButtonAll /> */}
                                 </Grid>
                                 <Grid item lg={4.4} md={4.4} sm={12} xs={12}>
-                                    <TransactionDetails items={List2} />
+                                    <TransactionDetails items={List} />
                                 </Grid>
                             </Grid>
                         </Box>
@@ -868,26 +927,27 @@ export default function BridgeTab() {
                                             </Grid>
 
                                             <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 1, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, } }}>
-                                                <Button
-                                                    variant='outlined'
-                                                    sx={{ textTransform: 'capitalize', }}
+                                                <Link
+                                                  href={`${getSelectInfo(selected1)?.explorer}/tx/${txDetail?.data?.inTxHash}`}
+                                                  target='_blank'
+                                            
                                                     className={classes.connectBridgeOutline}
                                                     color="inherit"
                                                 >
                                                     Input Hash
-                                                </Button>
-                                                <Button
-                                                    variant='outlined'
-                                                    sx={{ textTransform: 'capitalize', }}
+                                                </Link>
+                                                <Link
+                                                  href={`${getSelectInfo(selected2)?.explorer}/tx/${txDetail?.data?.outTxHash}`}
+                                                  target='_blank'
                                                     className={classes.connectBridgeOutline}
                                                     color="inherit"
                                                 >
                                                     Output Hash
-                                                </Button>
+                                                </Link>
 
                                             </Box>
                                             <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, pt: 0.5, '@media(max-width : 600px)': { flexWrap: 'wrap', gap: 0.5, } }}>
-                                                <Button
+                                                {/* <Button
                                                     variant='outlined'
                                                     sx={{ textTransform: 'capitalize', }}
                                                     className={classes.connectBridgeOutline}
@@ -895,10 +955,11 @@ export default function BridgeTab() {
 
                                                 >
                                                     Open History
-                                                </Button>
+                                                </Button> */}
                                                 <Button
                                                     sx={{ textTransform: 'capitalize' }}
                                                     className={classes.connectBridge}
+                                                    onClick={()=>{}}
 
                                                 >
                                                     New Transaction
@@ -958,7 +1019,7 @@ export default function BridgeTab() {
             </Box>
         )
     }
- 
+
 
     const ButtonAll = () => {
         return (
@@ -977,13 +1038,57 @@ export default function BridgeTab() {
                             >
                                 Back
                             </Button>
-                            <Button
-                                sx={{ textTransform: 'capitalize' }}
-                                className={classes.connectBridge}
-                                onClick={activeStep === steps.length - 0 ? handleReset : handleNext}
-                            >
-                                {activeStep === steps.length - 1 ? 'Reset' : `${activeStep === 1 ? "Continue with an account" : "Next Step"}`}
-                            </Button>
+                            {
+                                activeStep ===  1 ? (
+                                    <Button
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        opacity: !(
+                                            !recipientAddress || isPending
+                                        )
+                                            ? "1" : '0.3'
+                                    }}
+                                    disabled={!recipientAddress||isPending}
+                                    className={classes.connectBridge}
+                                    onClick={async()=>{
+                                        try {
+                                            await mutateAsync({
+                                                fromChain: getSelectInfo(selected1)?.chain,
+                                                toChain: getSelectInfo(selected2)?.chain,
+                                                fromToken: `${getSelectInfo(selected1)?.symbol}:${getSelectInfo(selected1)?.contractAddress}`,
+                                                toToken: `${getSelectInfo(selected2)?.symbol}:${getSelectInfo(selected2)?.contractAddress}`,
+                                                receiverAddress: recipientAddress,
+                                                amountInWei: parseUnits(
+                                                    fromValue,
+                                                    getSelectInfo(selected1)?.decimal as number
+                                                ).toString()
+                                            })
+                                        } catch (error) {
+                                            console.log(error);
+                                            
+                                        }
+                                    }}
+                                >
+                                    Continue { isPending && <CircularProgress color='inherit' size={15}/>}
+                                </Button>
+                                ):(
+                                    <Button
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        opacity: !(
+                                            !recipientAddress
+                                        )
+                                            ? "1" : '0.3'
+                                    }}
+                                    disabled={!recipientAddress}
+                                    className={classes.connectBridge}
+                                    onClick={activeStep === steps.length - 0 ? handleReset : handleNext}
+                                >
+                                    {activeStep === steps.length - 1 ? 'Reset' : `${activeStep !== 1 && "Next Step"}`}
+                                </Button>
+                                )
+                            }
+            
                         </Box>
                     </Grid>
 
@@ -994,7 +1099,7 @@ export default function BridgeTab() {
 
 
 
-    
+
     return (
         <Box>
 
@@ -1317,7 +1422,7 @@ export default function BridgeTab() {
                                 </Box>
                             </Grid>
                         </Grid> */}
-                        <SelectDrop/>
+                        <SelectDrop />
                     </Box>
                 </CustomTabPanel>
 
@@ -1383,7 +1488,17 @@ export default function BridgeTab() {
                             <Grid container spacing={2}>
                                 <Grid item lg={2.5} md={2.5} sm={12} xs={12}></Grid>
                                 <Grid item lg={6} md={7} sm={12} xs={12}>
-                                    <Transfer onClick={handleOpen}/>
+                                    <Transfer
+                                        fromValue={fromValue}
+                                        setFromValue={setFromValue}
+                                        toValue={toValue}
+                                        setToValue={setToValue}
+                                        selected1={selected1}
+                                        selected2={selected2}
+                                        setSelected1={setSelected1}
+                                        setSelected2={setSelected2}
+                                        onClick={handleOpen}
+                                    />
                                 </Grid>
                                 <Grid item lg={3.5} md={2.5} sm={12} xs={12}>
                                 </Grid>

@@ -16,6 +16,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     justifyContent: 'space-between',
      backgroundColor:'#3DC1F2',
     padding: '0.5rem 1rem',
+    color: '#000 !important',
     borderRadius: '4px',
 }));
 
@@ -40,12 +41,12 @@ const AddressCopy = ({ text, address,  }: props) => {
     return (
         <>
             <StyledBox>
-                <StyledLink href={'#'}>
+                <StyledLink href={'#'} sx={{color:'#000 !important'}}>
                     {address}
                 </StyledLink>
 
                 <Box onClick={handleCopy}>
-                    <ContentCopyIcon sx={{ color: '#C0C3C9', width: 18 }} />
+                    <ContentCopyIcon sx={{ color: '#000', width: 18 }} />
                 </Box>
                 <Snackbar
 
