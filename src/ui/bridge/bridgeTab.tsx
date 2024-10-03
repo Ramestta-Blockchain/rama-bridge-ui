@@ -1076,11 +1076,11 @@ export default function BridgeTab() {
                                     sx={{
                                         textTransform: 'capitalize',
                                         opacity: !(
-                                            !recipientAddress
+                                            !recipientAddress || (toValue)==='' || Number(toValue)<25
                                         )
                                             ? "1" : '0.3'
                                     }}
-                                    disabled={!recipientAddress}
+                                    disabled={!recipientAddress || (toValue)==='' || Number(toValue)<25 }
                                     className={classes.connectBridge}
                                     onClick={activeStep === steps.length - 0 ? handleReset : handleNext}
                                 >

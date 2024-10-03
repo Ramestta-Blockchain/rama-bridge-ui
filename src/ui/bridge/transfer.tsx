@@ -370,11 +370,11 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                         sx={{
                              textTransform: 'capitalize',
                              opacity: !(
-                                ((toValue)==='' && Number(toValue)<25)
+                                ((toValue)==='' || Number(toValue)<25)
                             )
                                 ? "1" : '0.3'
                              }}
-                        disabled={((toValue)==='' && Number(toValue)<25)}
+                        disabled={((toValue)==='' || Number(toValue)<25)}
                         className={classes.connectBridge}
                         onClick={onClick}>
                         Exchange Now
