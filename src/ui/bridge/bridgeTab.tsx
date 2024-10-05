@@ -268,9 +268,6 @@ export default function BridgeTab() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
 
     const handleOpen = () => {
 
@@ -288,6 +285,13 @@ export default function BridgeTab() {
     const [selected1, setSelected1] = useState<number>(1); // Default to id 1
     const [selected2, setSelected2] = useState<number>(2); // Default to id 2
     // end
+
+    const handleReset = () => {
+        setActiveStep(0);
+        setFromValue('');
+        setToValue('')
+        setRecipientAddress('')
+    };
 
 
     // const handleSwap2 = () => {
@@ -959,7 +963,9 @@ export default function BridgeTab() {
                                                 <Button
                                                     sx={{ textTransform: 'capitalize' }}
                                                     className={classes.connectBridge}
-                                                    onClick={()=>{}}
+                                                    onClick={()=>{
+                                                        handleReset()
+                                                    }}
 
                                                 >
                                                     New Transaction
