@@ -73,8 +73,8 @@ const DropdownThree: React.FC<DropdownThreeProps> = ({ locations,defaultLocation
                 border: `1px solid ${theme.palette.primary.light}`,
                 backgroundImage: 'none',
                 '@media(max-width : 600px)':{
-                    minWidth: '90% !important',
-                    padding:'0px 10px'
+                    minWidth: '95% !important',
+                    padding:'0px 10px',
                 }
             },
         },

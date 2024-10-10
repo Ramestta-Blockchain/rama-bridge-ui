@@ -720,6 +720,7 @@ export default function BridgeTab() {
                                                             }}>
                                                                 <Typography sx={{
                                                                     backgroundColor: '#999999',
+                                                                    height:'24px',
                                                                     padding: '2px 5px',
                                                                     borderRadius: '4px'
                                                                 }} fontSize={14} color={'#000'}>{getSelectInfo(selected1)?.name}</Typography>
@@ -1137,9 +1138,9 @@ export default function BridgeTab() {
                                         zIndex: '1',
                                     }
                                 }} value={value} onChange={handleChange} aria-label="basic tabs example">
-                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px', }} label="Ramestta Bridge" {...a11yProps(0)} />
-                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px', }} label="Cross-chain Bridge" {...a11yProps(1)} />
-                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px', }} label="Third-Party Bridges" {...a11yProps(2)} />
+                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px','@media(max-width : 600px)':{width:'175px'} }} label="Ramestta Bridge" {...a11yProps(0)} />
+                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px','@media(max-width : 600px)':{width:'175px'} }} label="Cross-chain Bridge" {...a11yProps(1)} />
+                                <Tab sx={{ textTransform: 'capitalize', color: "#999", borderRadius: '6px','@media(max-width : 600px)':{width:'175px'} }} label="Third-Party Bridges" {...a11yProps(2)} />
                             </Tabs>
                         </Box>
                     </Grid>

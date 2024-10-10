@@ -21,6 +21,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: 'none',
     color: theme.palette.primary.contrastText,
+    wordBreak:'break-all',
+    fontSize:'16px !important'
 }));
 
 const TextCopy = ({ text, address }: props) => {

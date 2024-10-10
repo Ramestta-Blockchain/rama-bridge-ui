@@ -85,7 +85,10 @@ const DropdownTwo = () => {
                 maxHeight: 'inherit',
                 padding: '0.5rem 1rem',
                 border: `1px solid ${theme.palette.primary.light}`,
-                backgroundImage: 'none'
+                backgroundImage: 'none',
+                '@media(max-width : 600px)':{
+                    minWidth: '95% !important',
+                }
             },
         },
     };

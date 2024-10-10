@@ -179,7 +179,7 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                 boxShadow: 'none',
                                 borderRadius: '6px',
                                 border: '1px solid transparent',
-                                padding: '0px', // Zero padding
+                                padding: '0px !important', // Zero padding
                                 '& .MuiOutlinedInput-notchedOutline': {
                                     borderColor: 'transparent',
                                     boxShadow: 'inherit',
@@ -198,7 +198,7 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                             <Box>
                                                 <Typography>{location.symbol} ({location.Short})</Typography>
                                                 <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                                                    <Typography color={'#999'} fontSize={12}>{location.description}</Typography>
+                                                    <Typography color={'#999'} fontSize={11.1}>{location.description}</Typography>
                                                     <Typography sx={{ backgroundColor: '#B6A727', color: '#000', padding: '1px 3px', borderRadius: '4px' }} fontSize={12}>{location.Short}</Typography>
                                                 </Box>
                                             </Box>
@@ -208,10 +208,14 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                             </Select>
 
                             <Box sx={{
-                                textAlign: 'end',
+                                 textAlign:'end',
                                 width: '100%',
                                 padding: '8px 10px',
-                                marginTop: '1rem'
+                                '@media(max-width : 600px)':{
+                                                textAlign: 'left',
+                                                 
+                                            },
+                                
                             }}>
                                 {/* <Typography fontSize={20} color={theme.palette.primary.contrastText}>
                                     0.5
@@ -224,8 +228,14 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                             flex: 1, color: theme.palette.primary.contrastText,
                                             width: '100%',
                                             fontSize: 20,
+                                            
                                             '& input': {
                                                 '-moz-appearance': 'textfield', // Firefox
+                                                textAlign: 'end',
+                                                '@media(max-width : 600px)':{
+                                                textAlign: 'left',
+                                                marginTop:'8px',
+                                            },
                                                 '&::-webkit-outer-spin-button': {
                                                     '-webkit-appearance': 'none', // Chrome, Safari, Edge
                                                     margin: 0,
@@ -304,7 +314,8 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                 }
                             }}
                         >
-                            <Select sx={{
+                           <Box>
+                           <Select sx={{
                                 height: '52px',
                                 backgroundColor: theme.palette.primary.main,
                                 boxShadow: 'none',
@@ -337,16 +348,23 @@ const Transfer = ({ fromValue, setFromValue, toValue, setToValue, onClick, selec
                                     </MenuItem>
                                 ))}
                             </Select>
+                           </Box>
                             <Box>
                                 <InputBase
                                     onChange={(e) => { setFromValue(e.target.value); setToValue(e.target.value) }}
                                     value={fromValue || toValue}
                                     sx={{
-                                        flex: 1, color: theme.palette.primary.contrastText,
+                                        // flex: 1, 
+                                        color: theme.palette.primary.contrastText,
                                         width: '100%',
                                         fontSize: 20,
                                         '& input': {
                                             '-moz-appearance': 'textfield', // Firefox
+                                            textAlign: 'end',
+                                            '@media(max-width : 600px)':{
+                                                textAlign: 'left',
+                                                marginTop:'8px',
+                                            },
                                             '&::-webkit-outer-spin-button': {
                                                 '-webkit-appearance': 'none', // Chrome, Safari, Edge
                                                 margin: 0,
