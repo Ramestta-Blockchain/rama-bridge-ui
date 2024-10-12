@@ -233,7 +233,17 @@ export default function BridgeTab() {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+        localStorage.setItem('selectedTab', String(newValue));
     };
+
+    React.useEffect(() => {
+        const savedTabIndex = localStorage.getItem('selectedTab');
+        if (savedTabIndex) {
+            setValue(Number(savedTabIndex));
+        }
+    }, []);
+
+    
     const colorMode = React.useContext(ColorModeContext);
     const theme = useTheme();
     const { openConnectModal } = useConnectModal();
@@ -256,21 +266,23 @@ export default function BridgeTab() {
 
 
 
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState<number>(0);
     const [open, setOpen] = useState(false);
 
 
     const handleNext = async () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+         
     };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+         
     };
 
 
     const handleOpen = () => {
-
+         
         setOpen(true);
 
     };
